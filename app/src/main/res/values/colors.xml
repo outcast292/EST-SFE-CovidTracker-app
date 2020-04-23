@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="creamyWhite">#f8f4f1</color>
+    <color name="BrownishWhite">#e4cda4</color>
+    <color name="kindaOrange">#e5ab2d</color>
+    <color name="partyLipstick">#b00637</color>
+    <color name="darkpartyLipstick">#a52a2a</color>
+    <color name="darkGrey">#262626</color>
+    <color name="kindaDarkGrey">#4d4d4d</color>
+
+</resources>

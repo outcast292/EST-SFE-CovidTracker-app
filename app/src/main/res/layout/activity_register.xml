@@ -23,7 +23,6 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,13 +32,13 @@
             app:placeholderText="Téléphone"
             app:boxStrokeColor="@color/darkpartyLipstick"
             app:hintTextColor="@color/darkpartyLipstick"
-
+            android:id="@+id/fieldPhoneNumber"
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="phone"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -53,18 +52,20 @@
             >
 
             <Button
-                android:id="@+id/containedButton"
+                android:id="@+id/buttonStartVerification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Envoyez"
                 android:backgroundTint="@color/darkpartyLipstick"
                 android:textColor="@color/creamyWhite"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp"
+                android:onClick="verify"/>
+
             <Button
-                android:id="@+id/containedButton2"
+                android:id="@+id/buttonResend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Effacer"
+                android:text="Resend"
                 android:backgroundTint="@color/BrownishWhite"
                 android:textColor="@color/kindaDarkGrey"
                 />
@@ -96,12 +97,14 @@
             android:layout_marginTop="15dp"
             app:boxStrokeColor="@color/darkpartyLipstick"
             app:hintTextColor="@color/darkpartyLipstick"
-            app:placeholderText="Code SMS">
+            app:placeholderText="Code SMS"
+            android:id="@+id/fieldVerificationCode"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="phone"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -115,6 +118,7 @@
             >
 
             <Button
+                android:id="@+id/buttonVerifyPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Envoyez"

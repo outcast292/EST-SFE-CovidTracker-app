@@ -62,6 +62,7 @@ public class FirebaseDatabaseHelper {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Failed adding: " + e);
                         status.Fail();
                     }
                 }).addOnCanceledListener(new OnCanceledListener() {

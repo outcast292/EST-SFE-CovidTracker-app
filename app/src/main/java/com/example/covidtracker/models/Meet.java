@@ -6,6 +6,27 @@ public class Meet {
     private FieldValue foundTimestamp;
     private FieldValue lostTimestamp;
     private String status;
+    private String lat;
+    private String lon;
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
+
+    @Override
+    public String toString() {
+        return "Meet{" +
+                "foundTimestamp=" + foundTimestamp +
+                ", lostTimestamp=" + lostTimestamp +
+                ", status='" + status + '\'' +
+                ", lat='" + lat + '\'' +
+                ", lon='" + lon + '\'' +
+                '}';
+    }
 
     public Meet(FieldValue foundTimestamp, FieldValue lostTimestamp, String status) {
         this.foundTimestamp = foundTimestamp;

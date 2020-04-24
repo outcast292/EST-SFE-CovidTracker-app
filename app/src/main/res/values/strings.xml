@@ -21,7 +21,7 @@
     <string name="status">Status</string>
     <string name="location">Location</string>
     <string name="meeting">Meeting</string>
-    <string name="preference_file_key">com.hackathon.covidtracer.PREFKEY</string>
+    <string name="preference_file_key">com.example.covidtracker</string>
     <string name="registered">registered</string>
     <string name="familyName">familyName</string>
     <string name="surname">surname</string>

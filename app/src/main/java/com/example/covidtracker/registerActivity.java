@@ -232,10 +232,11 @@ public class registerActivity extends AppCompatActivity implements
 
                             final String phoneNumber = "+212" + mPhoneNumberField.getEditText().getText().toString();
                             final User newUser = new User(phoneNumber, "Healthy");
+
                             FirebaseDatabaseHelper.getInstance().addUser(newUser, context, new FirebaseDatabaseHelper.DataStatus() {
                                 @Override
                                 public void Success() {
-                                    Log.d(TAG, "Added new user");
+                                    Log.d(TAG, "Added user : " + newUser.getPhone() + "/" + newUser.getStatus());
                                     final SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString(getString(R.string.phone), phoneNumber);
@@ -248,7 +249,7 @@ public class registerActivity extends AppCompatActivity implements
 
                                 @Override
                                 public void Fail() {
-                                    Log.d(TAG, "Failed to add new user");
+                                    Log.d(TAG, "Failed to add user : "  + newUser.getPhone() + "/" + newUser.getStatus());
                                 }
                             });
                         } else {

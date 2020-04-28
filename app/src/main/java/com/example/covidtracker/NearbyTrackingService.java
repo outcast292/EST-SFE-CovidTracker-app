@@ -12,6 +12,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -46,6 +47,7 @@ public class NearbyTrackingService extends Service {
     private long onFoundStart = -1;
     private long contactDuration = -1;
 
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -60,10 +62,16 @@ public class NearbyTrackingService extends Service {
 
         myUserUIDMessage = new Message(myUserUID.getBytes());
         messageListener = new MessageListener() {
+            private String currentMeeting ;
             @Override
             public void onFound(Message message) {
+                currentMeeting =  "meeting_" + Utils.getAlphaNumericString(20);
+
                 final String metUserUID = new String(message.getContent());
+
                 Log.d(TAG, "Found user: " + metUserUID);
+                Toast.makeText(context,"Found user :" + metUserUID, Toast.LENGTH_LONG).show();
+
                 final Meet meet = new Meet(FieldValue.serverTimestamp(), FieldValue.serverTimestamp(), "ongoing");
 
                 onFoundStart = System.currentTimeMillis();
@@ -74,21 +82,20 @@ public class NearbyTrackingService extends Service {
                 LocationRequest mLocationRequest = new LocationRequest();
 
                 mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
                 getFusedLocationProviderClient(getApplicationContext()).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         String filePath = getApplicationContext().getFilesDir().toString() + "/meetings" + "/" + metUserUID;
                         writeToStorage(filePath , "latitude.txt", String.valueOf(location.getLatitude()) );
                         writeToStorage(filePath , "longitude.txt", String.valueOf(location.getLongitude()));
-                        meet.setLat(String.valueOf(location.getLatitude()) );
-                        meet.setLon( String.valueOf(location.getLongitude()) );
                     }
                 });
 
                 String filePath = getApplicationContext().getFilesDir().toString() + "/meetings" + "/" + metUserUID;
                 writeToStorage(filePath , "date.txt", formattedDate);
 
-                FirebaseDatabaseHelper.getInstance().addMeeting(myUserUID, metUserUID, meet, new FirebaseDatabaseHelper.DataStatus() {
+                FirebaseDatabaseHelper.getInstance().addMeeting(myUserUID, metUserUID, meet, currentMeeting, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void Success() {
                         Log.d(TAG, "Inserted user");
@@ -119,7 +126,7 @@ public class NearbyTrackingService extends Service {
                 String filePath = getApplicationContext().getFilesDir().toString() + "/meetings" + "/" + metUserUID;
                 writeToStorage(filePath, "duration.txt", String.valueOf(contactDuration));
 
-                FirebaseDatabaseHelper.getInstance().updateMeetingEnding(myUserUID, metUserUID, FieldValue.serverTimestamp(), new FirebaseDatabaseHelper.DataStatus() {
+                FirebaseDatabaseHelper.getInstance().updateMeetingEnding(myUserUID, metUserUID, currentMeeting, FieldValue.serverTimestamp(), new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void Success() {
                         Log.d(TAG, "Updated meeting");

@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.covidtracker.R;
+import com.example.covidtracker.Utils;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,8 +21,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FirebaseDatabaseHelper {
@@ -73,11 +77,12 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
-    public void addMeeting(String myUserUID, String metUserUID, Meet meet, final DataStatus status) {
-        meetingsCollection.document(myUserUID).collection("meetings").document(metUserUID).set(meet)
+    public void addMeeting(final String myUserUID, final String metUserUID, Meet meet, String currentMeeting, final DataStatus status ) {
+        meetingsCollection.document(myUserUID).collection(metUserUID).document(currentMeeting).set(meet)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        getMeetingsCount(myUserUID,metUserUID);
                         status.Success();
                     }
                 })
@@ -89,8 +94,8 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
-    public void updateMeetingEnding(String myUserID, String metUserUID, FieldValue endingTimestamp, final DataStatus status) {
-        DocumentReference meetToUpdate = meetingsCollection.document(myUserID).collection("meetings").document(metUserUID);
+    public void updateMeetingEnding(String myUserID, String metUserUID, String currentMeeting, FieldValue endingTimestamp, final DataStatus status) {
+        DocumentReference meetToUpdate = meetingsCollection.document(myUserID).collection(metUserUID).document(currentMeeting);
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("lostTimestamp", endingTimestamp);
         updatedFields.put("status", "ended");
@@ -108,26 +113,6 @@ public class FirebaseDatabaseHelper {
                     }
                 });
     }
-
-    public void updateUserStatus(String myUserID, String newStatus, final DataStatus status) {
-        DocumentReference userToUpdate = usersCollection.document(myUserID);
-        Map<String, Object> updatedFields = new HashMap<>();
-        updatedFields.put("status", newStatus);
-        userToUpdate.update(updatedFields)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        status.Success();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        status.Fail();
-                    }
-                });
-    }
-
     public void updateDeviceToken(String myUserID, String deviceToken, final DataStatus status) {
         DocumentReference userToUpdate = usersCollection.document(myUserID);
         Map<String, Object> updatedFields = new HashMap<>();
@@ -150,24 +135,30 @@ public class FirebaseDatabaseHelper {
 
     public void getEncounteredUserInfo(String myUserID, String metUserUID) {
 
-        DocumentReference meetToUpdate = meetingsCollection.document(myUserID).collection("meetings").document(metUserUID);
-        Query query = usersCollection.whereEqualTo("users", metUserUID);
 
-        meetToUpdate
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    }
+
+    public void hasEncountredInfected(){
+
+    }
+
+    public void getMeetingsCount(String myUserID, String metUserUID){
+
+        meetingsCollection.document(myUserID).collection(metUserUID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d(TAG, "No such document");
+                    int count = 0;
+                    for (DocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, "" + document.getData() );
+                        count++;
                     }
+                    Log.d(TAG, "n meetings : " + count );
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.d(TAG, "Error getting documents: ", task.getException());
                 }
             }
         });
+
     }
 }

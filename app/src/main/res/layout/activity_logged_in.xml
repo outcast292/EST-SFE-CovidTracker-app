@@ -5,15 +5,46 @@
     android:layout_height="match_parent">
 
     <!-- Main content -->
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/darkpartyLipstick"
-        app:itemIconTint="@color/creamyWhite"
-        app:itemTextColor="@color/creamyWhite"
-        app:menu="@menu/bottom_navigation_menu" />
+        android:layout_height="wrap_content" android:padding="20dp">
+
+     <TextView
+         android:id="@+id/how"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Comment ca fonctionne ?"
+         android:textSize="30dp"
+         android:fontFamily="sans-serif-condensed"
+         android:gravity="center"
+         android:textColor="@color/darkGrey"
+         android:textStyle="bold"
+         />
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/app_description"
+         android:layout_below="@id/how"
+         android:textSize="20dp"
+         android:layout_marginTop="15dp"
+         android:gravity="center_vertical"/>
+
+
+
+    </RelativeLayout>
+
+
+    <!--
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/darkpartyLipstick"
+            app:itemIconTint="@color/creamyWhite"
+            app:itemTextColor="@color/creamyWhite"
+            app:menu="@menu/bottom_navigation_menu" />
+      -->
 
 </FrameLayout>

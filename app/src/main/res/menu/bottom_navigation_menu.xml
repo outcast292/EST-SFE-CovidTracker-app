@@ -5,7 +5,7 @@
         android:icon="@drawable/ic_home_black_18dp"/>
     <item android:title="Meetings"
         android:id="@+id/bottomNavigationClockMenuId"
-        android:icon="@drawable/ic_coronavirus"/>
+        android:icon="@drawable/ic_home_black_18dp"/>
     <item android:title="Settings"
         android:id="@+id/bottomNavigationTimerMenuId"
         android:icon="@drawable/ic_settings_black_18dp"/>

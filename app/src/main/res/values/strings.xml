@@ -31,6 +31,7 @@
     <string name="UID">UID</string>
     <string name="token">token</string>
     <string name="default_notification_channel_id">MYCHANNEL</string>
+    <string name="notificationsStack">MYCHANNEL</string>
     <string name="text_permissions">En vous inscrivant, vous acceptez de:</string>
     <string name="text_permissions_1">- Surveiller et stocker les personnes avec lesquelles vous entrez en contact (l\'identité reste inconnue)</string>
     <string name="text_permissions_2">- Stockage de votre numéro de téléphone</string>

@@ -30,6 +30,8 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
+
+
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
         String token = sharedPreferences.getString(getString(R.string.token), "None");
 
@@ -51,10 +53,9 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.d(TAG, "From: " + remoteMessage.getData());
+        Log.d(TAG, "From: " + remoteMessage.getData().toString());
 
-        sendNotification("recieved notif");
-
+        addNotification(remoteMessage.getData().toString());
     }
 
     private void sendNotification(String messageBody) {
@@ -85,6 +86,29 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         notificationManager.notify(0, notificationBuilder.build());
+    }
+
+    public void addNotification(String notification) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // get old notifications
+        String oldNotifications = getNotifications();
+        if (oldNotifications != null) {
+            oldNotifications += "|" + notification;
+        } else {
+            oldNotifications = notification;
+        }
+
+        editor.putString(getString(R.string.notificationsStack), oldNotifications);
+        editor.commit();
+    }
+
+    public String getNotifications() {
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        return sharedPreferences.getString(getString(R.string.notificationsStack), null);
     }
 
 }

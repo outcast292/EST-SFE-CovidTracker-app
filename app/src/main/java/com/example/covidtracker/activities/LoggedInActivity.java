@@ -21,6 +21,7 @@ import com.example.covidtracker.NearbyTrackingService;
 import com.example.covidtracker.R;
 import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
 import com.example.covidtracker.homeFragment;
+import com.example.covidtracker.ui.notifications.NotificationsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -84,6 +85,8 @@ public class LoggedInActivity extends AppCompatActivity {
                     switch (item.getItemId()){
                         case R.id.nav_home:
                             selectedFrag = new homeFragment();
+                        case R.id.nav_notifs:
+                            selectedFrag = new NotificationsFragment();
 
                     }
 

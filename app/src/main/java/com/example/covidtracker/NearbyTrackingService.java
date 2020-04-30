@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ public class NearbyTrackingService extends Service {
     private Context context = this;
     private long onFoundStart = -1;
     private long contactDuration = -1;
-    private boolean serviceStatus = false;
+    private String serviceStatus = "stopped";
 
 
     @Nullable
@@ -150,14 +151,12 @@ public class NearbyTrackingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        serviceStatus = true;
         Toast.makeText(this, "Entrain de détecter ... ", Toast.LENGTH_LONG).show();
         Log.d(TAG, "Entrain de détecter ... ");
 
-        Intent i = new Intent(getBaseContext(), homeFragment.class);
-        i.putExtra("serviceStatus", true);
+        serviceStatus = "running";
+        sendMessageToActivity(serviceStatus, "msg" , context);
 
-        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
 
         Nearby.getMessagesClient(this).publish(myUserUIDMessage);
         Nearby.getMessagesClient(this).subscribe(messageListener);
@@ -178,8 +177,22 @@ public class NearbyTrackingService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        serviceStatus = "stopped";
+        sendMessageToActivity(serviceStatus, "msg" , context);
+        Log.d(TAG, "onDestroy: called");
         Nearby.getMessagesClient(this).unpublish(myUserUIDMessage);
         Nearby.getMessagesClient(this).unsubscribe(messageListener);
+    }
+
+    @Override
+    public boolean stopService(Intent name) {
+
+        Log.d(TAG, "onDestroy: called");
+        Nearby.getMessagesClient(this).unpublish(myUserUIDMessage);
+        Nearby.getMessagesClient(this).unsubscribe(messageListener);
+
+        return super.stopService(name);
+
     }
 
     private void createNotificationChannel() {
@@ -192,6 +205,17 @@ public class NearbyTrackingService extends Service {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(serviceChannel);
         }
+    }
+
+
+    private static void sendMessageToActivity(String l, String msg, Context context) {
+        Intent intent = new Intent("NearbyTrackingService");
+        // You can also include some extra data.
+        intent.putExtra("Status", msg);
+        Bundle b = new Bundle();
+        b.putString("serviceStatus", l);
+        intent.putExtra("serviceStatus", b);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
 

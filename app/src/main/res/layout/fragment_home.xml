@@ -6,43 +6,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".homeFragment">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/decouverte"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_margin="10dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="5dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical|center_horizontal">
+                <TextView
+                    android:id="@+id/serviceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/serviceTitle"
+                    android:textColor="@color/text"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="left"
+                    android:layout_weight="1"/>
+
+                <Switch
+                    android:id="@+id/switchService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:layout_margin="20sp"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:thumbTint="@color/text"
+                    android:trackTint="@color/bg"
+                    >
+                </Switch>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/serviceBody"
+                android:textColor="@color/text"
+                android:textSize="15sp"
+                android:layout_margin="20dp"/>
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/decouverte"
+        android:background="@color/bg">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" android:layout_margin="20sp" >
-            <!--
 
-                <TextView
-                    android:id="@+id/how"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Comment ca fonctionne ?"
-                    android:textSize="30dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center"
-                    android:textColor="@color/darkGrey"
-                    android:textStyle="bold"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_description"
-                    android:layout_below="@id/how"
-                    android:textSize="20dp"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_vertical"/>
-            -->
             <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
                 android:layout_width="match_parent"
-                android:layout_height="153dp"
+                android:layout_height="160dp"
                 app:cardCornerRadius="10dp"
                 app:cardBackgroundColor="@color/darkpartyLipstick"
-                android:elevation="@dimen/cardview_compat_inset_shadow"
                 android:layout_marginBottom="10dp"
                 >
                 <RelativeLayout
@@ -51,42 +88,42 @@
 
                     <LinearLayout
                         android:id="@+id/title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_margin="15dp">
                         <ImageView
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:src="@drawable/ic_report_problem_24px"
-                            android:layout_marginTop="20sp"
-                            android:layout_marginLeft="20sp"
-                            android:tint="@color/creamyWhite"
+                            android:tint="@color/text"
                             />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="25sp"
                             android:text="@string/exposed"
-                            android:textColor="@color/creamyWhite" />
+                            android:textColor="@color/text"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"/>
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/meeting_explanation"
-                        android:textColor="@color/creamyWhite"
+                        android:textColor="@color/text"
                         android:layout_below="@id/title"
-                        android:layout_marginLeft="25sp"
-                        android:layout_marginRight="25sp"/>
+                        android:layout_marginLeft="15dp"
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/contact_medic"
-                        android:textColor="@color/creamyWhite"
+                        android:textColor="@color/text"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="25sp"/>
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="5dp"/>
 
 
                 </RelativeLayout>
@@ -96,6 +133,7 @@
 
 
             <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/creamyWhite"
@@ -111,7 +149,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/sickcard"
-                        android:textColor="@color/darkpartyLipstick"
+                        android:textColor="@color/text"
                         />
 
                     <Button
@@ -119,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Quels sont les symptoms?"
-                        android:textColor="@color/darkpartyLipstick"
+                        android:textColor="@color/text"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:textStyle="bold"
                         android:textAllCaps="true"
@@ -132,8 +170,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Informez nous!"
-                        android:textColor="@color/creamyWhite"
-                        android:backgroundTint="@color/darkpartyLipstick"
+                        android:textColor="@color/bg"
+                        android:backgroundTint="@color/text"
                         android:onClick="sendRapport"
                         android:layout_gravity="right"
                         />
@@ -144,8 +182,6 @@
 
 
             </androidx.cardview.widget.CardView>
-
-
 
 
         </LinearLayout>

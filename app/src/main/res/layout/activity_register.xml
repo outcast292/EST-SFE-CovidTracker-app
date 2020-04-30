@@ -31,8 +31,8 @@
             android:layout_marginTop="15dp"
             android:inputType="number"
             app:placeholderText="Téléphone"
-            app:boxStrokeColor="@color/darkpartyLipstick"
-            app:hintTextColor="@color/darkpartyLipstick"
+            app:boxStrokeColor="@color/text"
+            app:hintTextColor="@color/text"
             android:id="@+id/fieldPhoneNumber"
             >
 
@@ -57,8 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Envoyez"
-                android:backgroundTint="@color/darkpartyLipstick"
-                android:textColor="@color/creamyWhite"
+                android:backgroundTint="@color/text"
+                android:textColor="@color/bg"
                 android:layout_marginRight="10dp"
                 android:onClick="verify"/>
 
@@ -96,8 +96,8 @@
             android:layout_height="wrap_content"
             android:hint="Code"
             android:layout_marginTop="15dp"
-            app:boxStrokeColor="@color/darkpartyLipstick"
-            app:hintTextColor="@color/darkpartyLipstick"
+            app:boxStrokeColor="@color/text"
+            app:hintTextColor="@color/text"
             app:placeholderText="Code SMS"
             android:id="@+id/fieldVerificationCode"
             >
@@ -123,8 +123,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Envoyez"
-                android:backgroundTint="@color/darkpartyLipstick"
-                android:textColor="@color/creamyWhite"/>
+                android:backgroundTint="@color/text"
+                android:textColor="@color/bg"/>
 
         </LinearLayout>
 

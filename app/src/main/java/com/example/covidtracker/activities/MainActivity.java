@@ -2,6 +2,7 @@ package com.example.covidtracker.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -57,4 +58,5 @@ public class MainActivity extends AppCompatActivity {
                 .setMessage(getString(R.string.conditions));
 
     }
+
 }

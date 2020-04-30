@@ -24,6 +24,13 @@
             android:name=".NearbyTrackingService"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".CustomFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <activity android:name=".activities.HelperActivity">
             <intent-filter>
@@ -35,6 +42,15 @@
         <activity android:name=".activities.LoggedInActivity" />
         <activity android:name=".activities.registerActivity" />
         <activity android:name=".activities.MainActivity" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_coronavirus" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/creamyWhite" />
     </application>
 
 </manifest>

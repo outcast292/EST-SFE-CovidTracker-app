@@ -11,9 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.covidtracker.CustomFirebaseMessagingService;
 import com.example.covidtracker.NearbyTrackingService;
 import com.example.covidtracker.R;
 import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
@@ -25,6 +28,8 @@ public class LoggedInActivity extends AppCompatActivity {
 
     TextView uid;
     private String myUserUID;
+    Switch serviceSwitch ;
+
 
 
     @Override
@@ -32,8 +37,27 @@ public class LoggedInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_in);
 
-        Intent serviceIntent = new Intent(getApplicationContext(), NearbyTrackingService.class);
-        startService(serviceIntent);
+        final Intent serviceIntent = new Intent(getApplication(), NearbyTrackingService.class);
+        final Intent FCMIntent = new Intent(getApplication(), CustomFirebaseMessagingService.class);
+
+
+        startService(FCMIntent);
+        serviceSwitch = findViewById(R.id.switchService);
+        if (serviceSwitch.isChecked()){
+            startService(serviceIntent);
+        }
+        serviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    startService(serviceIntent);
+                }else{
+                    stopService(serviceIntent);
+                }
+            }
+        });
+
+        //startService(serviceIntent);
 
 
         BottomNavigationView botnav = findViewById(R.id.bottom_navigation);

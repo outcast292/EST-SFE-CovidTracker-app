@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/darkpartyLipstick"
+            android:background="@color/text"
             app:itemIconTint="@color/creamyWhite"
             app:itemTextColor="@color/creamyWhite"
             app:menu="@menu/bottom_navigation_menu" />

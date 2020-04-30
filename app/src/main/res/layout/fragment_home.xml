@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".homeFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_margin="20sp" >
+            <!--
+
+                <TextView
+                    android:id="@+id/how"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Comment ca fonctionne ?"
+                    android:textSize="30dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:textColor="@color/darkGrey"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_description"
+                    android:layout_below="@id/how"
+                    android:textSize="20dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"/>
+            -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="153dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/darkpartyLipstick"
+                android:elevation="@dimen/cardview_compat_inset_shadow"
+                android:layout_marginBottom="10dp"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="142dp">
+
+                    <LinearLayout
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_report_problem_24px"
+                            android:layout_marginTop="20sp"
+                            android:layout_marginLeft="20sp"
+                            android:tint="@color/creamyWhite"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_margin="25sp"
+                            android:text="@string/exposed"
+                            android:textColor="@color/creamyWhite" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/meeting_explanation"
+                        android:textColor="@color/creamyWhite"
+                        android:layout_below="@id/title"
+                        android:layout_marginLeft="25sp"
+                        android:layout_marginRight="25sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contact_medic"
+                        android:textColor="@color/creamyWhite"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="25sp"/>
+
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/creamyWhite"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sickcard"
+                        android:textColor="@color/darkpartyLipstick"
+                        />
+
+                    <Button
+                        android:id="@+id/showsymptoms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quels sont les symptoms?"
+                        android:textColor="@color/darkpartyLipstick"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:fontFamily="sans-serif-condensed"
+                        android:onClick="showSymptoms"
+                        />
+
+                    <Button
+                        android:id="@+id/sendrapport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Informez nous!"
+                        android:textColor="@color/creamyWhite"
+                        android:backgroundTint="@color/darkpartyLipstick"
+                        android:onClick="sendRapport"
+                        android:layout_gravity="right"
+                        />
+
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

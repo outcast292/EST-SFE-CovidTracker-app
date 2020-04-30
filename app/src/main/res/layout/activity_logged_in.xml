@@ -1,50 +1,28 @@
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!-- Main content -->
-    <RelativeLayout
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.covidtracker.homeFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:padding="20dp">
-
-     <TextView
-         android:id="@+id/how"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="Comment ca fonctionne ?"
-         android:textSize="30dp"
-         android:fontFamily="sans-serif-condensed"
-         android:gravity="center"
-         android:textColor="@color/darkGrey"
-         android:textStyle="bold"
-         />
-
-     <TextView
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="@string/app_description"
-         android:layout_below="@id/how"
-         android:textSize="20dp"
-         android:layout_marginTop="15dp"
-         android:gravity="center_vertical"/>
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"/>
 
 
 
-    </RelativeLayout>
 
-
-    <!--
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
             android:background="@color/darkpartyLipstick"
             app:itemIconTint="@color/creamyWhite"
             app:itemTextColor="@color/creamyWhite"
             app:menu="@menu/bottom_navigation_menu" />
-      -->
 
-</FrameLayout>
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.covidtracker;
+package com.example.covidtracker.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

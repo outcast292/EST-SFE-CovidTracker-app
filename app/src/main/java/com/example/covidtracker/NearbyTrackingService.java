@@ -12,16 +12,15 @@ import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
-import com.example.covidtracker.LoggedInActivity;
-import com.example.covidtracker.R;
+import com.example.covidtracker.activities.LoggedInActivity;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
@@ -46,6 +45,7 @@ public class NearbyTrackingService extends Service {
     private Context context = this;
     private long onFoundStart = -1;
     private long contactDuration = -1;
+    private boolean serviceStatus = false;
 
 
     @Nullable
@@ -56,6 +56,8 @@ public class NearbyTrackingService extends Service {
 
     @Override
     public void onCreate() {
+        Log.d(TAG, "created nearbysrvc ");
+
         super.onCreate();
         SharedPreferences prefs = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         myUserUID = prefs.getString(getString(R.string.UID), "None");
@@ -148,7 +150,14 @@ public class NearbyTrackingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Toast.makeText(this, "Starting tracking", Toast.LENGTH_LONG).show();
+        serviceStatus = true;
+        Toast.makeText(this, "Entrain de détecter ... ", Toast.LENGTH_LONG).show();
+        Log.d(TAG, "Entrain de détecter ... ");
+
+        Intent i = new Intent(getBaseContext(), homeFragment.class);
+        i.putExtra("serviceStatus", true);
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
 
         Nearby.getMessagesClient(this).publish(myUserUIDMessage);
         Nearby.getMessagesClient(this).subscribe(messageListener);
@@ -158,7 +167,7 @@ public class NearbyTrackingService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Tracking of people nearby")
+                .setContentTitle("Entrain de détecter ... ")
                 .setSmallIcon(R.drawable.ic_coronavirus)
                 .setContentIntent(pendingIntent)
                 .build();

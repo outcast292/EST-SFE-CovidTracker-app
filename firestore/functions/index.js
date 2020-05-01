@@ -6,11 +6,11 @@ exports.sendPushNotification = functions.firestore
     .document('users/{userID}')
     .onUpdate((change, context) => {
         let status = change.after.data().status;
-        let comp = (status === "Contamined");
-        console.log(` comparison status : ${comp} `); 
+        let comp = (status !== "Contamined");
+        console.log(` comparison status : ${comp} `);
         if (comp) {
-            console.log(` ${context.params.userID} not contamined : ${status} `); 
-            return "not contamined";          
+            console.log(` ${context.params.userID} not contamined : ${status} `);
+            return "not contamined";
         } else {
             console.log(` ${context.params.userID} contamined : ${status} `);
             const userID = context.params.userID;
@@ -36,10 +36,15 @@ exports.sendPushNotification = functions.firestore
                         var token = s.data().token;
                         console.log("token: " + token);
                         var message = {
+                            notification: {
+                                title: 'TEST',
+                                body: 'i m testing if it works'
+                            },
                             data: {
                                 id: userID,
                                 oldStatus: change.before.data().status,
                                 newStatus: change.after.data().status
+
                             },
                             token: token
                         };

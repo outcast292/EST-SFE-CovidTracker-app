@@ -43,7 +43,7 @@ public class LoggedInActivity extends AppCompatActivity {
         final Intent FCMIntent = new Intent(getApplication(), CustomFirebaseMessagingService.class);
 
 
-        //startService(FCMIntent);
+        startService(FCMIntent);
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
         String token = sharedPreferences.getString(getString(R.string.token), "None");
@@ -74,7 +74,7 @@ public class LoggedInActivity extends AppCompatActivity {
             }
         });*/
 
-        //startService(serviceIntent);
+        startService(serviceIntent);
 
 
         BottomNavigationView botnav = findViewById(R.id.bottom_navigation);

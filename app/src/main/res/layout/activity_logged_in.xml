@@ -5,13 +5,11 @@
     android:layout_height="match_parent">
 
     <!-- Main content -->
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.covidtracker.homeFragment"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/fragment"
         android:layout_above="@id/bottom_navigation"/>
-
 
 
 

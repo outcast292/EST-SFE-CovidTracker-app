@@ -2,6 +2,7 @@ package com.example.covidtracker.ui.notifications;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +19,11 @@ import android.widget.TextView;
 
 import com.example.covidtracker.CustomFirebaseMessagingService;
 import com.example.covidtracker.R;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -31,6 +37,9 @@ public class NotificationsFragment extends Fragment {
 
     TextView message;
     String notifs;
+    ArrayList<NotificationModel> notifications = new ArrayList<NotificationModel>();
+    Gson g = new Gson();
+    String TAG = "notifFrag";
 
     @Nullable
     @Override
@@ -41,7 +50,6 @@ public class NotificationsFragment extends Fragment {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         notifs =  sharedPreferences.getString(getString(R.string.notificationsStack), null);
 
-        Log.d(TAG, "onCreateView: " + notifs);
 
         return inflater.inflate(R.layout.notifications_fragment, container, false);
     }
@@ -53,4 +61,8 @@ public class NotificationsFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 */
+
+    public /*ArrayList<NotificationModel>*/ void strToArray(String str/* , ArrayList<NotificationModel>*/){
+
+    }
 }

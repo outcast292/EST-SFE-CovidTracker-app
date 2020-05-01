@@ -30,13 +30,10 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-
-
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
         String token = sharedPreferences.getString(getString(R.string.token), "None");
 
-        Log.d(TAG, "currentToken : " + token);
-        /*
+
         FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void Success() {
@@ -47,15 +44,14 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
             public void Fail() {
                 Log.d(TAG, "Failed");
             }
-        });*/
+        });
     }
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.d(TAG, "From: " + remoteMessage.getData().toString());
+        Log.d(TAG, "From: " + remoteMessage.getData().getClass());
 
-        addNotification(remoteMessage.getData().toString());
     }
 
     private void sendNotification(String messageBody) {

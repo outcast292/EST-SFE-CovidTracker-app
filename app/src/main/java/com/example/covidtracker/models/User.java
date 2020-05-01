@@ -3,8 +3,18 @@ package com.example.covidtracker.models;
 public class User {
     public String phone;
     public String status;
+    public String token;
+
     public User() {
 
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public String getPhone() {
@@ -23,8 +33,9 @@ public class User {
         this.status = status;
     }
 
-    public User(String phone, String status) {
+    public User(String phone, String status, String token) {
         this.phone = phone;
         this.status = status;
+        this.token = token;
     }
 }

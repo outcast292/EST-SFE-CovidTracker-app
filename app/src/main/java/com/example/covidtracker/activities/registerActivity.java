@@ -61,12 +61,15 @@ public class registerActivity extends AppCompatActivity implements
     private Button mVerifyButton;
     private Button mResendButton;
 
+    String token = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         context = this;
+        String token = "";
 
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
@@ -220,8 +223,8 @@ public class registerActivity extends AppCompatActivity implements
                                             }
 
                                             // Get new Instance ID token
-                                            String token = task.getResult().getToken();
-                                            Log.d(TAG, token);
+                                            token = task.getResult().getToken();
+                                            Log.d(TAG, "token : " + token);
                                             SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
                                             editor.putString(getString(R.string.token), token);
@@ -231,12 +234,13 @@ public class registerActivity extends AppCompatActivity implements
                                     });
 
                             final String phoneNumber = "+212" + mPhoneNumberField.getEditText().getText().toString();
-                            final User newUser = new User(phoneNumber, "Healthy");
+
+                            final User newUser = new User(phoneNumber, "Healthy", token);
 
                             FirebaseDatabaseHelper.getInstance().addUser(newUser, context, new FirebaseDatabaseHelper.DataStatus() {
                                 @Override
                                 public void Success() {
-                                    Log.d(TAG, "Added user : " + newUser.getPhone() + "/" + newUser.getStatus());
+                                    Log.d(TAG, "Added user : " + newUser.getPhone() + "/" + newUser.getStatus() + "/" + token);
                                     final SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString(getString(R.string.phone), phoneNumber);

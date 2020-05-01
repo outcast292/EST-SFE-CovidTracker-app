@@ -122,6 +122,7 @@ public class FirebaseDatabaseHelper {
                     }
                 });
     }
+
     public void updateDeviceToken(String myUserID, String deviceToken, final DataStatus status) {
         DocumentReference userToUpdate = usersCollection.document(myUserID);
         Map<String, Object> updatedFields = new HashMap<>();
@@ -139,15 +140,6 @@ public class FirebaseDatabaseHelper {
                         status.Fail();
                     }
                 });
-
-    }
-
-    public void getEncounteredUserInfo(String myUserID, String metUserUID) {
-
-
-    }
-
-    public void hasEncountredInfected(){
 
     }
 

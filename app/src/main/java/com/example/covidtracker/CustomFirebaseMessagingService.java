@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
+import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -15,13 +17,27 @@ import androidx.core.app.NotificationCompat;
 import com.example.covidtracker.R;
 import com.example.covidtracker.activities.LoggedInActivity;
 import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
+import com.example.covidtracker.ui.notifications.NotificationModel;
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Serializable;
+import java.util.Map;
 
 import static com.example.covidtracker.Utils.readFromStorage;
 
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "CustomFMService";
+    private ArrayList<NotificationModel> notifs = new ArrayList<NotificationModel>(0); ;
+
+
 
     @Override
     public void onNewToken(@NonNull String s) {
@@ -50,7 +66,13 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.d(TAG, "From: " + remoteMessage.getData().getClass());
+        Log.d(TAG, "From: " + remoteMessage.getData());
+
+        addNotification(remoteMessage.getData());
+
+        Log.d(TAG, "notifs :" + getNotifications());
+
+
 
     }
 
@@ -84,27 +106,41 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(0, notificationBuilder.build());
     }
 
-    public void addNotification(String notification) {
+    public void addNotification(Map<String, String> data) {
+        SharedPreferences sharedPrefs = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        int notifStack = getNotifications().size();
+        Gson gson = new Gson();
 
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        // get old notifications
-        String oldNotifications = getNotifications();
-        if (oldNotifications != null) {
-            oldNotifications += "|" + notification;
-        } else {
-            oldNotifications = notification;
+        NotificationModel notif = new NotificationModel(2,"zaeaz","aez","aze");
+
+        if(notifStack != 0){
+            notifs = getNotifications();
         }
 
-        editor.putString(getString(R.string.notificationsStack), oldNotifications);
+        Log.d(TAG, "size :" + notifStack);
+        Log.d(TAG, "notifs size:" + notifs.size());
+
+        notifs.add(notif);
+
+        Log.d(TAG, "notifs size:" + notifs.size());
+        String json = gson.toJson(notifs);
+        editor.putString(getString(R.string.notificationsStack), json);
         editor.commit();
+
+
+
     }
 
-    public String getNotifications() {
-
+    public ArrayList<NotificationModel> getNotifications() {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        return sharedPreferences.getString(getString(R.string.notificationsStack), null);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(getString(R.string.notificationsStack), "");
+        Type type = new TypeToken<ArrayList<NotificationModel>>() {}.getType();
+        ArrayList<NotificationModel> arrayList = gson.fromJson(json, type);
+
+        return  arrayList;
     }
 
 }

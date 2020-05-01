@@ -15,13 +15,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.covidtracker.CustomFirebaseMessagingService;
 import com.example.covidtracker.R;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,18 +44,32 @@ public class NotificationsFragment extends Fragment {
     ArrayList<NotificationModel> notifications = new ArrayList<NotificationModel>();
     Gson g = new Gson();
     String TAG = "notifFrag";
+    NotificationAdapter mAdapter;
+    android.widget.ListView ListView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+        View rootview = inflater.inflate(R.layout.notifications_fragment, container, false);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        notifs =  sharedPreferences.getString(getString(R.string.notificationsStack), null);
 
+        ArrayList<NotificationModel> list = new ArrayList<NotificationModel>();
 
-        return inflater.inflate(R.layout.notifications_fragment, container, false);
+        list = getNotifications();
+        Log.d(TAG, "onCreateView: list" + list);
+
+        mAdapter = new NotificationAdapter(getContext(), R.layout.notification_layout ,list);
+
+        ListView  = rootview.findViewById(R.id.ListView);
+
+        ListView.setAdapter(mAdapter);
+
+        mAdapter.notifyDataSetChanged();
+
+        return rootview;
     }
     /*
     @Override
@@ -62,7 +80,15 @@ public class NotificationsFragment extends Fragment {
     }
 */
 
-    public /*ArrayList<NotificationModel>*/ void strToArray(String str/* , ArrayList<NotificationModel>*/){
 
+    public ArrayList<NotificationModel> getNotifications() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(getString(R.string.notificationsStack), "");
+        Type type = new TypeToken<ArrayList<NotificationModel>>() {}.getType();
+        ArrayList<NotificationModel> arrayList = gson.fromJson(json, type);
+
+        return  arrayList;
     }
+
 }

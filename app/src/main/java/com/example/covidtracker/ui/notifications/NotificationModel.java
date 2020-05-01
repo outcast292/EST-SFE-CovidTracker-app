@@ -5,6 +5,15 @@ public class NotificationModel {
     int id;
     String title,body,notifType;
 
+    @Override
+    public String toString() {
+        return "NotificationModel{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", notifType='" + notifType + '\'' +
+                '}';
+    }
 
     public NotificationModel(int id, String title, String body, String notifType) {
         this.id = id;

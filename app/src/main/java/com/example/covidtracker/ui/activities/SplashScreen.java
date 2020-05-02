@@ -1,8 +1,10 @@
-package com.example.covidtracker;
+package com.example.covidtracker.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.covidtracker.R;
 
 public class SplashScreen extends AppCompatActivity {
 

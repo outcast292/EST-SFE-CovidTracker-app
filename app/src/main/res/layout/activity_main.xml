@@ -6,25 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/creamyWhite"
-    tools:context=".MainActivity"
+    tools:context=".ui.activities.MainActivity"
     android:padding="20dp">
-
-    <!--
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="30dp"
-        android:text="AppName Blabla"
-        android:textAlignment="center"
-        android:textColor="@color/partyLipstick"
-        android:textSize="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="50dp"/>
-
-    -->
-
-
 
 
     <LinearLayout
@@ -39,7 +22,7 @@
             android:id="@+id/imageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:tint="@color/darkpartyLipstick"
+            android:tint="@color/text"
             android:src="@drawable/ic_coronavirus"
              />
 
@@ -59,6 +42,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/accepter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -105,13 +89,24 @@
 
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/text"
+        android:text="@string/label_conditions"
+        android:textColor="@color/text"
+        android:onClick="openAgreements"
+        android:layout_above="@id/inscrireBtn"
+        />
+
 
     <Button
         android:id="@+id/inscrireBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="S'inscrire"
-        android:textColor="@color/darkpartyLipstick"
+        android:textColor="@color/text"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textSize="40dp"
         android:layout_alignParentBottom="true"

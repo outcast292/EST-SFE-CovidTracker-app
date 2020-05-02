@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
 import com.example.covidtracker.models.Meet;
 import com.example.covidtracker.models.User;
@@ -30,11 +31,19 @@ import java.util.Map;
 
 public class FirebaseDatabaseHelper {
     private static final String TAG = "FirebaseDatabaseHelper";
+
+    private FirebaseFirestoreSettings dbsettings = new FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .build();
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
     private static FirebaseDatabaseHelper firebaseDatabaseHelper = new FirebaseDatabaseHelper();
     private CollectionReference usersCollection, meetingsCollection;
 
     private FirebaseDatabaseHelper() {
+        db.setFirestoreSettings(dbsettings);
         usersCollection = db.collection("users");
         meetingsCollection = db.collection("users_meetings");
     }
@@ -113,6 +122,7 @@ public class FirebaseDatabaseHelper {
                     }
                 });
     }
+
     public void updateDeviceToken(String myUserID, String deviceToken, final DataStatus status) {
         DocumentReference userToUpdate = usersCollection.document(myUserID);
         Map<String, Object> updatedFields = new HashMap<>();
@@ -130,15 +140,6 @@ public class FirebaseDatabaseHelper {
                         status.Fail();
                     }
                 });
-
-    }
-
-    public void getEncounteredUserInfo(String myUserID, String metUserUID) {
-
-
-    }
-
-    public void hasEncountredInfected(){
 
     }
 

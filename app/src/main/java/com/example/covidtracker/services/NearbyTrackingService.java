@@ -1,4 +1,4 @@
-package com.example.covidtracker;
+package com.example.covidtracker.services;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,18 +10,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
-import com.example.covidtracker.LoggedInActivity;
 import com.example.covidtracker.R;
+import com.example.covidtracker.Utils;
+import com.example.covidtracker.ui.activities.LoggedInActivity;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
@@ -46,6 +48,7 @@ public class NearbyTrackingService extends Service {
     private Context context = this;
     private long onFoundStart = -1;
     private long contactDuration = -1;
+    private String serviceStatus = "stopped";
 
 
     @Nullable
@@ -56,6 +59,8 @@ public class NearbyTrackingService extends Service {
 
     @Override
     public void onCreate() {
+        Log.d(TAG, "created nearbysrvc ");
+
         super.onCreate();
         SharedPreferences prefs = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         myUserUID = prefs.getString(getString(R.string.UID), "None");
@@ -82,7 +87,7 @@ public class NearbyTrackingService extends Service {
                 LocationRequest mLocationRequest = new LocationRequest();
 
                 mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
+/*
                 getFusedLocationProviderClient(getApplicationContext()).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -94,7 +99,7 @@ public class NearbyTrackingService extends Service {
 
                 String filePath = getApplicationContext().getFilesDir().toString() + "/meetings" + "/" + metUserUID;
                 writeToStorage(filePath , "date.txt", formattedDate);
-
+*/
                 FirebaseDatabaseHelper.getInstance().addMeeting(myUserUID, metUserUID, meet, currentMeeting, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void Success() {
@@ -148,9 +153,12 @@ public class NearbyTrackingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Toast.makeText(this, "Starting tracking", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Entrain de détecter ... ", Toast.LENGTH_LONG).show();
+        Log.d(TAG, "Entrain de détecter ... ");
+
 
         Nearby.getMessagesClient(this).publish(myUserUIDMessage);
+        Log.d(TAG, "publish " + Nearby.getMessagesClient(this).publish(myUserUIDMessage).getException());
         Nearby.getMessagesClient(this).subscribe(messageListener);
 
         createNotificationChannel();
@@ -158,7 +166,7 @@ public class NearbyTrackingService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Tracking of people nearby")
+                .setContentTitle("Entrain de détecter ... ")
                 .setSmallIcon(R.drawable.ic_coronavirus)
                 .setContentIntent(pendingIntent)
                 .build();
@@ -169,8 +177,22 @@ public class NearbyTrackingService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        serviceStatus = "stopped";
+        sendMessageToActivity(serviceStatus, "msg" , context);
+        Log.d(TAG, "onDestroy: called");
         Nearby.getMessagesClient(this).unpublish(myUserUIDMessage);
         Nearby.getMessagesClient(this).unsubscribe(messageListener);
+    }
+
+    @Override
+    public boolean stopService(Intent name) {
+
+        Log.d(TAG, "onDestroy: called");
+        Nearby.getMessagesClient(this).unpublish(myUserUIDMessage);
+        Nearby.getMessagesClient(this).unsubscribe(messageListener);
+
+        return super.stopService(name);
+
     }
 
     private void createNotificationChannel() {
@@ -183,6 +205,17 @@ public class NearbyTrackingService extends Service {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(serviceChannel);
         }
+    }
+
+
+    private static void sendMessageToActivity(String l, String msg, Context context) {
+        Intent intent = new Intent("NearbyTrackingService");
+        // You can also include some extra data.
+        intent.putExtra("Status", msg);
+        Bundle b = new Bundle();
+        b.putString("serviceStatus", l);
+        intent.putExtra("serviceStatus", b);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
 

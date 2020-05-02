@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "540405409258-8o29tc38v4abjk692l2no4scqa7lfhgb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.covidtracker",
+            "certificate_hash": "8f89922c756ab562b2ac9c904421119e35e86e50"
+          }
+        },
+        {
+          "client_id": "540405409258-544e99c9lp9l55qlt3h16s3fgec42amu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.covidtracker",
+            "certificate_hash": "8f9bfd8c11b8779e6137b24782a913da8a6f1a9c"
+          }
+        },
+        {
           "client_id": "540405409258-hlne1cu0f1dvc1t2s16pefgtv22ig9fl.apps.googleusercontent.com",
           "client_type": 3
         }

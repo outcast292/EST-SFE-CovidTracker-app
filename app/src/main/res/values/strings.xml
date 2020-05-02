@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">CovidTracer</string>
+    <string name="app_name_isactive">CovidTracer est actif</string>
+    <string name="app_desc_isactive">Ne faites rien que laisser l\'application en arrière-plan, ainsi que le bluetooth actif.</string>
     <string name="app_description">En laissant cette application s\'exécuter en arrière-plan, vous pourrez savoir quand vous êtes entré en contact avec une personne malade.</string>
-    <string name="explanation">Here you can anonomously update your health status. You will be notified if another user
-    who has been near you has contracted COVID-19</string>
-    <string name="meeting_explanation">Someone whom you were in close proximity with has updated their health status.</string>
+    <string name="iffeelingsick">Que faire si je me sens malade?</string>
+    <string name="allo_ya9ada">Appeler le numéro vert Allo Yakada si vous ne sentez pas bien</string>
+    <string name="socialdist_title">Pratiquer la distance sociale</string>
+    <string name="socialdist_description">Du text à propos de la distance sociale</string>
+    <string name="meeting_explanation">Quelqu\'un avec qui vous étiez à proximité a été diagnostiqué positif pour covid-19.</string>
+    <string name="contact_medic">Veuillez contacter votre medecin!</string>
     <string name="meeting_date">Date: \n  %1$s</string>
     <string name="meeting_duration">Duration of contact: \n  %1$s</string>
     <string name="meeting_location">Location</string>
@@ -16,12 +21,13 @@
     <string name="edit_phone">Telefon</string>
     <string name="btn_next">Continue</string>
     <string name="btn_finish">Finish</string>
-    <string name="disclaimer">You can opt-in to share your data. Your data will only be accessed if you are ill</string>
+    <string name="disclaimer">Toute information collectée par Covid Tracker est sécurisé, avec maintien de votre vie privée.</string>
     <string name="status">Status</string>
     <string name="location">Location</string>
     <string name="meeting">Meeting</string>
     <string name="preference_file_key">com.example.covidtracker</string>
     <string name="registered">registered</string>
+    <string name="accepted">registered</string>
     <string name="familyName">familyName</string>
     <string name="surname">surname</string>
     <string name="email">email</string>
@@ -29,10 +35,20 @@
     <string name="UID">UID</string>
     <string name="token">token</string>
     <string name="default_notification_channel_id">MYCHANNEL</string>
+    <string name="notificationsStack">MYCHANNEL</string>
     <string name="text_permissions">En vous inscrivant, vous acceptez de:</string>
     <string name="text_permissions_1">- Surveiller et stocker les personnes avec lesquelles vous entrez en contact (l\'identité reste inconnue)</string>
     <string name="text_permissions_2">- Stockage de votre numéro de téléphone</string>
     <string name="phone_desc">Saisissez le numéro de téléphone. Vous recevrez un code unique par SMS, que vous devrez saisir dans la case ci-dessous:</string>
     <string name="code_desc">Entrez le code reçu par SMS:</string>
     <string name="push_notification">Covid Tracer: Someone you interacted with changed his status from:  %1$s to %2$s</string>
+    <string name="label_conditions">J\'accepte les termes et conditions</string>
+    <string name="sickcard">Si vous experiencez des symptoms, n\'hesitez de nous informer</string>
+    <string name="exposed">Vous avez peut-être été exposé</string>
+    <string name="serviceTitle">Découverte </string>
+    <string name="serviceBody">Text à propos de la découverte et comment les donnes sont sauvegarder anonymement </string>
+    <string name="conditions">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

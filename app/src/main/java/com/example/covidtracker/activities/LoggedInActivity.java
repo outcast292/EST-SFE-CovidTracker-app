@@ -59,7 +59,7 @@ public class LoggedInActivity extends AppCompatActivity {
             }
         });
 */
-        //startService(serviceIntent);
+        startService(serviceIntent);
 
 
         BottomNavigationView botnav = findViewById(R.id.bottom_navigation);

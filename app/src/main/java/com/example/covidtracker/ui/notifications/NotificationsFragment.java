@@ -56,15 +56,13 @@ public class NotificationsFragment extends Fragment {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        ArrayList<NotificationModel> list = new ArrayList<NotificationModel>();
+        ArrayList<NotificationModel> list = new ArrayList<NotificationModel>(0);
 
         list = getNotifications();
         Log.d(TAG, "onCreateView: list" + list);
 
         mAdapter = new NotificationAdapter(getContext(), R.layout.notification_layout ,list);
-
         ListView  = rootview.findViewById(R.id.ListView);
-
         ListView.setAdapter(mAdapter);
 
         mAdapter.notifyDataSetChanged();

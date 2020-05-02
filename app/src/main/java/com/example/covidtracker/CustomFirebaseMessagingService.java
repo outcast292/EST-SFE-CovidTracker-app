@@ -113,7 +113,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         Gson gson = new Gson();
 
 
-        NotificationModel notif = new NotificationModel(2,"zaeaz","aez","aze");
+        NotificationModel notif = new NotificationModel(2,"Title","Body","aze");
 
         if(notifStack != 0){
             notifs = getNotifications();

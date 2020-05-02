@@ -1,4 +1,4 @@
-package com.example.covidtracker;
+package com.example.covidtracker.services;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -21,7 +21,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
-import com.example.covidtracker.activities.LoggedInActivity;
+import com.example.covidtracker.R;
+import com.example.covidtracker.Utils;
+import com.example.covidtracker.ui.activities.LoggedInActivity;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
@@ -85,7 +87,7 @@ public class NearbyTrackingService extends Service {
                 LocationRequest mLocationRequest = new LocationRequest();
 
                 mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
+/*
                 getFusedLocationProviderClient(getApplicationContext()).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -97,7 +99,7 @@ public class NearbyTrackingService extends Service {
 
                 String filePath = getApplicationContext().getFilesDir().toString() + "/meetings" + "/" + metUserUID;
                 writeToStorage(filePath , "date.txt", formattedDate);
-
+*/
                 FirebaseDatabaseHelper.getInstance().addMeeting(myUserUID, metUserUID, meet, currentMeeting, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void Success() {
@@ -154,11 +156,9 @@ public class NearbyTrackingService extends Service {
         Toast.makeText(this, "Entrain de détecter ... ", Toast.LENGTH_LONG).show();
         Log.d(TAG, "Entrain de détecter ... ");
 
-        serviceStatus = "running";
-        sendMessageToActivity(serviceStatus, "msg" , context);
-
 
         Nearby.getMessagesClient(this).publish(myUserUIDMessage);
+        Log.d(TAG, "publish " + Nearby.getMessagesClient(this).publish(myUserUIDMessage).getException());
         Nearby.getMessagesClient(this).subscribe(messageListener);
 
         createNotificationChannel();

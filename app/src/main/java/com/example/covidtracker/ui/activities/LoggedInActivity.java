@@ -1,4 +1,4 @@
-package com.example.covidtracker.activities;
+package com.example.covidtracker.ui.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,19 +11,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.covidtracker.CustomFirebaseMessagingService;
-import com.example.covidtracker.NearbyTrackingService;
+import com.example.covidtracker.services.CustomFirebaseMessagingService;
+import com.example.covidtracker.services.NearbyTrackingService;
 import com.example.covidtracker.R;
 import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
-import com.example.covidtracker.homeFragment;
-import com.example.covidtracker.settingsFragment;
+import com.example.covidtracker.ui.activities.fragments.homeFragment;
+import com.example.covidtracker.ui.activities.fragments.settingsFragment;
 import com.example.covidtracker.ui.notifications.NotificationsFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class LoggedInActivity extends AppCompatActivity {
@@ -44,10 +42,14 @@ public class LoggedInActivity extends AppCompatActivity {
 
 
         startService(FCMIntent);
+
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
         String token = sharedPreferences.getString(getString(R.string.token), "None");
+
+        Log.d("TAG", "uid: " + strUserUID);
         Log.d("TAG", "token: " + token);
+
         FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void Success() {
@@ -59,21 +61,7 @@ public class LoggedInActivity extends AppCompatActivity {
                 Log.d("TAG", "Failed");
             }
         });
-        /*serviceSwitch = findViewById(R.id.switchService);
-        if (serviceSwitch.isChecked()){
-            startService(serviceIntent);
-        }
-        serviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    startService(serviceIntent);
-                }else{
-                    stopService(serviceIntent);
-                }
-            }
-        });
-*/
+
         startService(serviceIntent);
 
 

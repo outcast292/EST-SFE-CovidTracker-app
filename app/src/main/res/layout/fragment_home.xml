@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".homeFragment">
+    tools:context=".ui.activities.fragments.homeFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/decouverte"
@@ -13,6 +13,7 @@
         android:layout_margin="10dp"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="5dp"
+        android:visibility="gone"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,112 +78,241 @@
             <androidx.cardview.widget.CardView
                 app:cardUseCompatPadding="true"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
                 app:cardBackgroundColor="@color/darkpartyLipstick"
-                android:layout_marginBottom="10dp"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="142dp">
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp">
 
-                    <LinearLayout
-                        android:id="@+id/title"
+                <ImageView
+                    android:id="@+id/checkimg"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_check_circle_outline_24px"
+                    android:tint="@color/text"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    />
+                <TextView
+                    android:id="@+id/tv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name_isactive"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/darkGrey"
+                    android:layout_below="@+id/checkimg"
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    />
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@string/app_desc_isactive"
+                        android:textColor="@color/kindaDarkGrey"
+                        android:layout_below="@+id/tv1"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="7dp"
+                        />
+
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/iffeelingsick"
+                android:textSize="20dp"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/darkGrey"
+                android:layout_margin="10dp"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/smellOfSuccess"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="5dp"
+                >
+                <androidx.cardview.widget.CardView
+                    app:cardUseCompatPadding="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_margin="15dp">
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/ic_report_problem_24px"
-                            android:tint="@color/text"
+                        >
+
+                        <ImageButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_dialpad_24px"
+                            android:tint="@color/smellOfSuccess"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
                             />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/exposed"
-                            android:textColor="@color/text"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="10dp"/>
+                            android:text="@string/allo_ya9ada"
+                            android:textColor="@color/darkGrey"
+                            android:textSize="15dp"
+                            android:gravity="center_vertical"
+                            android:layout_weight="3"
+                            android:layout_margin="10dp"
+                            />
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/meeting_explanation"
-                        android:textColor="@color/text"
-                        android:layout_below="@id/title"
-                        android:layout_marginLeft="15dp"
-                        />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/contact_medic"
-                        android:textColor="@color/text"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginBottom="5dp"/>
-
-
-                </RelativeLayout>
-
-
+                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 app:cardUseCompatPadding="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/creamyWhite"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/darkpartyLipstick"
+                >
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:id="@+id/social_dis_ic"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@mipmap/ic_social_dist_foreground"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:id="@+id/title_sd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/socialdist_title"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textColor="@color/darkGrey"
+                        android:layout_below="@+id/social_dis_ic"
+                        android:gravity="center"
+                        android:textSize="15dp"
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/sickcard"
-                        android:textColor="@color/text"
+                        android:text="@string/socialdist_description"
+                        android:textColor="@color/kindaDarkGrey"
+                        android:layout_below="@+id/title_sd"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="7dp"
                         />
 
-                    <Button
-                        android:id="@+id/showsymptoms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Quels sont les symptoms?"
-                        android:textColor="@color/text"
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Statistiques du Covid-19 "
+                android:textSize="20dp"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/darkGrey"
+                android:layout_margin="10dp"
+                />
+
+            <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/darkpartyLipstick"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="CorAngular19"
+                        android:textColor="@color/darkGrey"
+                        android:textSize="17dp"
+                        android:gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:layout_marginLeft="15dp"
+                        />
+
+                    <ImageButton
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_link_24px"
+                        android:tint="@color/text"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:fontFamily="sans-serif-condensed"
-                        android:onClick="showSymptoms"
                         />
-
-                    <Button
-                        android:id="@+id/sendrapport"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Informez nous!"
-                        android:textColor="@color/bg"
-                        android:backgroundTint="@color/text"
-                        android:onClick="sendRapport"
-                        android:layout_gravity="right"
-                        />
-
-
-
                 </LinearLayout>
-
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/darkpartyLipstick"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Autre plateforme de stats"
+                        android:textColor="@color/darkGrey"
+                        android:textSize="17dp"
+                        android:gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:layout_marginLeft="15dp"
+                        />
+
+                    <ImageButton
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_link_24px"
+                        android:tint="@color/text"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="@string/disclaimer"
+             android:layout_margin="15dp"
+            android:layout_gravity="center"
+             />
 
         </LinearLayout>
     </ScrollView>

@@ -142,9 +142,13 @@ public class Utils {
     }
 
     public static void checkPermission(Activity activity) {
-        if ((ContextCompat.checkSelfPermission(activity, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) ||
+        if (
+                (ContextCompat.checkSelfPermission(activity, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) ||
                 (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) ||
-                (ContextCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED)) {
+                (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) ||
+                (ContextCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) ||
+                (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        ) {
 
             Log.d(TAG, "0");
 
@@ -153,15 +157,22 @@ public class Utils {
                     ActivityCompat.shouldShowRequestPermissionRationale
                             (activity, Manifest.permission.ACCESS_FINE_LOCATION) &&
                     ActivityCompat.shouldShowRequestPermissionRationale
-                            (activity, Manifest.permission.BLUETOOTH)) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    Log.d(TAG, "1");
+                            (activity, Manifest.permission.ACCESS_COARSE_LOCATION) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale
+                            (activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale
+                            (activity, Manifest.permission.BLUETOOTH))
+            {
 
-                    activity.requestPermissions(
-                            new String[]{Manifest.permission
-                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH},
-                            MULTIPLE_PERMISSIONS);
-                }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        Log.d(TAG, "1");
+
+                        activity.requestPermissions(
+                                new String[]{Manifest.permission
+                                        .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH,
+                                        Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                MULTIPLE_PERMISSIONS);
+                    }
 
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -169,7 +180,8 @@ public class Utils {
 
                     activity.requestPermissions(
                             new String[]{Manifest.permission
-                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH},
+                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             MULTIPLE_PERMISSIONS);
                 }
             }

@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">CovidTracer</string>
+    <string name="app_name_isactive">CovidTracer est actif</string>
+    <string name="app_desc_isactive">Ne faites rien que laisser l\'application en arrière-plan, ainsi que le bluetooth actif.</string>
     <string name="app_description">En laissant cette application s\'exécuter en arrière-plan, vous pourrez savoir quand vous êtes entré en contact avec une personne malade.</string>
-    <string name="explanation">Here you can anonomously update your health status. You will be notified if another user
-    who has been near you has contracted COVID-19</string>
+    <string name="iffeelingsick">Que faire si je me sens malade?</string>
+    <string name="allo_ya9ada">Appeler le numéro vert Allo Yakada si vous ne sentez pas bien</string>
+    <string name="socialdist_title">Pratiquer la distance sociale</string>
+    <string name="socialdist_description">Du text à propos de la distance sociale</string>
     <string name="meeting_explanation">Quelqu\'un avec qui vous étiez à proximité a été diagnostiqué positif pour covid-19.</string>
     <string name="contact_medic">Veuillez contacter votre medecin!</string>
     <string name="meeting_date">Date: \n  %1$s</string>
@@ -17,7 +21,7 @@
     <string name="edit_phone">Telefon</string>
     <string name="btn_next">Continue</string>
     <string name="btn_finish">Finish</string>
-    <string name="disclaimer">You can opt-in to share your data. Your data will only be accessed if you are ill</string>
+    <string name="disclaimer">Toute information collectée par Covid Tracker est sécurisé, avec maintien de votre vie privée.</string>
     <string name="status">Status</string>
     <string name="location">Location</string>
     <string name="meeting">Meeting</string>

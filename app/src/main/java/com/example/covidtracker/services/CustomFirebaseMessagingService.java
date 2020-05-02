@@ -1,4 +1,4 @@
-package com.example.covidtracker;
+package com.example.covidtracker.services;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -7,15 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.preference.PreferenceManager;
-import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.example.covidtracker.R;
-import com.example.covidtracker.activities.LoggedInActivity;
+import com.example.covidtracker.Utils;
+import com.example.covidtracker.ui.activities.LoggedInActivity;
 import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
 import com.example.covidtracker.ui.notifications.NotificationModel;
 import com.google.common.reflect.TypeToken;
@@ -23,15 +22,9 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-import java.io.Serializable;
 import java.util.Map;
-
-import static com.example.covidtracker.Utils.readFromStorage;
 
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "CustomFMService";
@@ -66,11 +59,9 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.d(TAG, "From: " + remoteMessage.getData());
+        Log.d(TAG, "notifs: " + remoteMessage.getData());
 
         addNotification(remoteMessage.getData());
-
-        Log.d(TAG, "notifs :" + getNotifications());
 
 
 
@@ -109,21 +100,18 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     public void addNotification(Map<String, String> data) {
         SharedPreferences sharedPrefs = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
-        int notifStack = getNotifications().size();
+        //int notifStack = getNotifications().size();
         Gson gson = new Gson();
 
 
-<<<<<<< HEAD
-        NotificationModel notif = new NotificationModel(2,"Title","Body","aze");
-=======
-        NotificationModel notif = new NotificationModel(2,"zaeaz","aez","aze");
->>>>>>> c87614dd015ec275bb03bf107cd79a9926d8c7b7
+        NotificationModel notif = new NotificationModel("notif_" + Utils.getAlphaNumericString(5) , data.get("newStatus"));
 
-        if(notifStack != 0){
+
+        /*if(notifStack != 0){
             notifs = getNotifications();
-        }
+        }*/
 
-        Log.d(TAG, "size :" + notifStack);
+       // Log.d(TAG, "size :" + notifStack);
         Log.d(TAG, "notifs size:" + notifs.size());
 
         notifs.add(notif);

@@ -1,9 +1,10 @@
-package com.example.covidtracker;
+package com.example.covidtracker.ui.activities.fragments;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.covidtracker.R;
 import com.example.covidtracker.ui.notifications.NotificationsFragment;
 
 public class notificationsFragment extends AppCompatActivity {

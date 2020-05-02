@@ -17,32 +17,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".notificationsFragment"></activity>
-        <activity android:name=".activities.conditionsActivity" />
-        <activity android:name=".SplashScreen" />
+        <activity android:name=".ui.activities.fragments.notificationsFragment"></activity>
+        <activity android:name=".ui.activities.SplashScreen" />
 
         <service
-            android:name=".NearbyTrackingService"
+            android:name=".services.NearbyTrackingService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".CustomFirebaseMessagingService"
+            android:name=".services.CustomFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".activities.HelperActivity">
+        <activity android:name=".ui.activities.HelperActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LoggedInActivity" />
-        <activity android:name=".activities.registerActivity" />
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".ui.activities.LoggedInActivity" />
+        <activity android:name=".ui.activities.registerActivity" />
+        <activity android:name=".ui.activities.MainActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

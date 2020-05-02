@@ -20,7 +20,7 @@ import java.util.List;
 
 public class NotificationAdapter extends ArrayAdapter<NotificationModel> {
 
-    private static final String TAG = "PersonListAdapter";
+    private static final String TAG = "NotificationAdapter";
 
     private Context mContext;
     private int mResource;
@@ -50,13 +50,11 @@ public class NotificationAdapter extends ArrayAdapter<NotificationModel> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //get the persons information
-        int id = getItem(position).getId();
-        String title = getItem(position).getTitle();
-        String body = getItem(position).getBody();
+        String id = getItem(position).getId();
         String notifType = getItem(position).getNotifType();
 
         //Create the person object with the information
-        NotificationModel notif = new NotificationModel(id,title,body,notifType);
+        NotificationModel notif = new NotificationModel(id,notifType);
 
         //create the view result for showing the animation
         final View result;
@@ -87,8 +85,11 @@ public class NotificationAdapter extends ArrayAdapter<NotificationModel> {
         result.startAnimation(animation);
         lastPosition = position;
 */
-        holder.title.setText(notif.getTitle());
-        holder.body.setText(notif.getBody());
+
+        if(notifType.equals("Contamined")){
+            holder.title.setText("title contamine");
+            holder.body.setText("body contamine");
+        }
 
         return convertView;
     }

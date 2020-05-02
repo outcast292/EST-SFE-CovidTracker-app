@@ -2,8 +2,7 @@ package com.example.covidtracker.ui.notifications;
 
 public class NotificationModel {
 
-    int id;
-    String title,body,notifType;
+    String  id,title,body,notifType;
 
     @Override
     public String toString() {
@@ -15,14 +14,12 @@ public class NotificationModel {
                 '}';
     }
 
-    public NotificationModel(int id, String title, String body, String notifType) {
+    public NotificationModel(String id, String notifType) {
         this.id = id;
-        this.title = title;
-        this.body = body;
         this.notifType = notifType;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -38,7 +35,7 @@ public class NotificationModel {
         this.notifType = notifType;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

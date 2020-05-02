@@ -1,8 +1,5 @@
 package com.example.covidtracker.ui.notifications;
 
-import androidx.lifecycle.ViewModelProviders;
-
-import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,21 +12,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.covidtracker.CustomFirebaseMessagingService;
 import com.example.covidtracker.R;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class NotificationsFragment extends Fragment {
 
@@ -39,13 +30,14 @@ public class NotificationsFragment extends Fragment {
         return new NotificationsFragment();
     }
 
-    TextView message;
+    TextView message,noNotifs;
     String notifs;
     ArrayList<NotificationModel> notifications = new ArrayList<NotificationModel>();
     Gson g = new Gson();
     String TAG = "notifFrag";
     NotificationAdapter mAdapter;
     android.widget.ListView ListView;
+    ImageView imageView;
 
     @Nullable
     @Override
@@ -56,27 +48,26 @@ public class NotificationsFragment extends Fragment {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-<<<<<<< HEAD
-        ArrayList<NotificationModel> list = new ArrayList<NotificationModel>(0);
-=======
         ArrayList<NotificationModel> list = new ArrayList<NotificationModel>();
->>>>>>> c87614dd015ec275bb03bf107cd79a9926d8c7b7
 
         list = getNotifications();
+
+        if (list != null && list.size() > 0) {
+            mAdapter = new NotificationAdapter(getContext(), R.layout.notification_layout ,list);
+
+            ListView  = rootview.findViewById(R.id.ListView);
+            ListView.setVisibility(View.VISIBLE);
+            ListView.setAdapter(mAdapter);
+
+            mAdapter.notifyDataSetChanged();
+        }else{
+            Log.d(TAG, "emptyy");
+            imageView = rootview.findViewById(R.id.imageView);
+            noNotifs = rootview.findViewById(R.id.noNotifs);
+            imageView.setVisibility(View.VISIBLE);
+            noNotifs.setVisibility(View.VISIBLE);
+        }
         Log.d(TAG, "onCreateView: list" + list);
-
-        mAdapter = new NotificationAdapter(getContext(), R.layout.notification_layout ,list);
-<<<<<<< HEAD
-        ListView  = rootview.findViewById(R.id.ListView);
-=======
-
-        ListView  = rootview.findViewById(R.id.ListView);
-
->>>>>>> c87614dd015ec275bb03bf107cd79a9926d8c7b7
-        ListView.setAdapter(mAdapter);
-
-        mAdapter.notifyDataSetChanged();
-
         return rootview;
     }
     /*

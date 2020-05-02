@@ -42,9 +42,24 @@ public class LoggedInActivity extends AppCompatActivity {
         final Intent serviceIntent = new Intent(getApplication(), NearbyTrackingService.class);
         final Intent FCMIntent = new Intent(getApplication(), CustomFirebaseMessagingService.class);
 
-/*
+
         startService(FCMIntent);
-        serviceSwitch = findViewById(R.id.switchService);
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
+        String token = sharedPreferences.getString(getString(R.string.token), "None");
+        Log.d("TAG", "token: " + token);
+        FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void Success() {
+                Log.d("TAG", "Updated");
+            }
+
+            @Override
+            public void Fail() {
+                Log.d("TAG", "Failed");
+            }
+        });
+        /*serviceSwitch = findViewById(R.id.switchService);
         if (serviceSwitch.isChecked()){
             startService(serviceIntent);
         }

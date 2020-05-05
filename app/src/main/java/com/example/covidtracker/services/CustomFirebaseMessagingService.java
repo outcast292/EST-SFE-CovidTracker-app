@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "CustomFMService";
-    private ArrayList<NotificationModel> notifs = new ArrayList<NotificationModel>(0); ;
+    private ArrayList<NotificationModel> notifs = new ArrayList<NotificationModel>(0);
 
 
 
@@ -100,28 +100,25 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     public void addNotification(Map<String, String> data) {
         SharedPreferences sharedPrefs = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
-        //int notifStack = getNotifications().size();
         Gson gson = new Gson();
 
 
         NotificationModel notif = new NotificationModel("notif_" + Utils.getAlphaNumericString(5) , data.get("newStatus"));
 
 
-        /*if(notifStack != 0){
+        if(getNotifications().size() != 0){
             notifs = getNotifications();
-        }*/
+            Log.d(TAG, "addNotification: notifStack.size: " + getNotifications().size() );
+        }else {
+            Log.d(TAG, "addNotification: notifStack.size: " + getNotifications().size() );
+        }
 
-       // Log.d(TAG, "size :" + notifStack);
-        Log.d(TAG, "notifs size:" + notifs.size());
 
         notifs.add(notif);
 
-        Log.d(TAG, "notifs size:" + notifs.size());
         String json = gson.toJson(notifs);
         editor.putString(getString(R.string.notificationsStack), json);
         editor.commit();
-
-
 
     }
 

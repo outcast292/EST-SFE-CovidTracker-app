@@ -48,7 +48,7 @@ public class FirebaseDatabaseHelper {
     private FirebaseDatabaseHelper() {
         db.setFirestoreSettings(dbsettings);
         usersCollection = db.collection("users");
-        meetingsCollection = db.collection("users");
+        meetingsCollection = db.collection("users_meetings");
 
     }
 
@@ -91,7 +91,7 @@ public class FirebaseDatabaseHelper {
     }
 
     public void addMeeting(final String myUserUID, final String metUserUID, Meet meet, String currentMeeting, final DataStatus status) {
-        meetingsCollection.document(myUserUID).collection(metUserUID).document(currentMeeting).set(meet)
+        usersCollection.document(myUserUID).collection("meetings").document(metUserUID).collection("meeetings").document(currentMeeting).set(meet)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -108,7 +108,7 @@ public class FirebaseDatabaseHelper {
     }
 
     public void updateMeetingEnding(String myUserID, String metUserUID, String currentMeeting, FieldValue endingTimestamp, final DataStatus status) {
-        DocumentReference meetToUpdate = meetingsCollection.document(myUserID).collection(metUserUID).document(currentMeeting);
+        DocumentReference meetToUpdate = usersCollection.document(myUserID).collection("meetings").document(metUserUID).collection("meeetings").document(currentMeeting);
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("lostTimestamp", endingTimestamp);
         updatedFields.put("status", "ended");

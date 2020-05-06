@@ -100,8 +100,8 @@ public class NotificationAdapter extends ArrayAdapter<NotificationModel> {
 */
 
         if(notifType.equals("Contamined")){
-            holder.title.setText("title contamine");
-            holder.body.setText("body contamine");
+            holder.title.setText("Vous avez peut-être été exposé");
+            holder.body.setText("Quelqu'un avec qui vous étiez à proximité a été diagnostiqué positif pour covid-19.");
         }
 
         holder.close.setOnClickListener(new View.OnClickListener() {

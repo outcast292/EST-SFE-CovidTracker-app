@@ -41,80 +41,33 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/accepter"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/header"
-        android:layout_marginTop="70dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:text="@string/text_permissions"
-            android:textAllCaps="true"
-            android:textColor="@color/darkGrey"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:textAllCaps="true"
-            android:textColor="@color/kindaDarkGrey"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:text="@string/text_permissions_1"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:textAllCaps="true"
-            android:textColor="@color/kindaDarkGrey"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:text="@string/text_permissions_2"
-            />
-
-
-
-    </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/check_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:buttonTint="@color/text"
-        android:text="@string/label_conditions"
-        android:textColor="@color/text"
-        android:onClick="openAgreements"
-        android:layout_above="@id/inscrireBtn"
+        android:text="@string/main_text"
+        android:textColor="@color/darkGrey"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="20dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:layout_centerInParent="true"
         />
-
 
     <Button
         android:id="@+id/inscrireBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="S'inscrire"
+        android:text="Accepter et s'inscrire"
         android:textColor="@color/text"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:textSize="40dp"
+        android:textSize="30dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:fontFamily="sans-serif-condensed"
         android:onClick="inscrireBtn"
+        android:layout_marginBottom="20dp"
 
         />
 

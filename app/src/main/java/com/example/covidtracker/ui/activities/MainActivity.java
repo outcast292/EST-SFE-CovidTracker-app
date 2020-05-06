@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
 
         termscb = findViewById(R.id.check_box);
 
@@ -34,26 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void inscrireBtn(View v){
-
-        if(termscb.isChecked()){
-            Intent intent = new Intent(this, registerActivity.class);
-            startActivity(intent);
-            Utils.checkPermission(this);
-        }else{
-
-            if(printedEtoiles = false){
-                printedEtoiles = true;
-                termscb.setText(termscb.getText() + "**");
-            }
-
-        }
+       Intent intent = new Intent(this, registerActivity.class);
+       startActivity(intent);
+       Utils.checkPermission(this);
     }
 
-    public void openAgreements(View v){
-        new AlertDialog.Builder(this)
-                .setTitle("Termes et conditions")
-                .setMessage(getString(R.string.conditions));
-
-    }
 
 }

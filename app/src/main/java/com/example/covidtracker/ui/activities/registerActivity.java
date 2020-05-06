@@ -230,13 +230,15 @@ public class registerActivity extends AppCompatActivity implements
                                             editor.putString(getString(R.string.token), token);
                                             editor.putBoolean(getString(R.string.registered), true);
                                             editor.commit();
+
                                         }
                                     });
 
                             final String phoneNumber = "+212" + mPhoneNumberField.getEditText().getText().toString();
                             Log.d(TAG, "onComplete: " + token);
-
-                            final User newUser = new User(phoneNumber, "Healthy");
+                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                            Log.d(TAG, "mAuth.getCurrentUser().getUid() = " + mAuth.getCurrentUser().getUid());
+                            final User newUser = new User(mAuth.getCurrentUser().getUid(),phoneNumber, "Healthy");
 
                             FirebaseDatabaseHelper.getInstance().addUser(newUser, context, new FirebaseDatabaseHelper.DataStatus() {
                                 @Override

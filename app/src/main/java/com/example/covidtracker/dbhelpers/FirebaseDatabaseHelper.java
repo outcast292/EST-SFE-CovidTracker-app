@@ -59,7 +59,7 @@ public class FirebaseDatabaseHelper {
     }
 
     public void addUser(User user, final Context context, final DataStatus status) {
-        final DocumentReference newUserRef = usersCollection.document();
+        final DocumentReference newUserRef = usersCollection.document(user.getUid());
         newUserRef.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

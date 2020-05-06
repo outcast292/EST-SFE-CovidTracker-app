@@ -24,12 +24,15 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class FirebaseDatabaseHelper {
+
     private static final String TAG = "FirebaseDatabaseHelper";
 
     private FirebaseFirestoreSettings dbsettings = new FirebaseFirestoreSettings.Builder()
@@ -45,7 +48,8 @@ public class FirebaseDatabaseHelper {
     private FirebaseDatabaseHelper() {
         db.setFirestoreSettings(dbsettings);
         usersCollection = db.collection("users");
-        meetingsCollection = db.collection("users_meetings");
+        meetingsCollection = db.collection("users");
+
     }
 
     public static FirebaseDatabaseHelper getInstance() {
@@ -79,19 +83,19 @@ public class FirebaseDatabaseHelper {
                         status.Fail();
                     }
                 }).addOnCanceledListener(new OnCanceledListener() {
-                    @Override
-                    public void onCanceled() {
-                        status.Fail();
-                    }
-                });
+            @Override
+            public void onCanceled() {
+                status.Fail();
+            }
+        });
     }
 
-    public void addMeeting(final String myUserUID, final String metUserUID, Meet meet, String currentMeeting, final DataStatus status ) {
+    public void addMeeting(final String myUserUID, final String metUserUID, Meet meet, String currentMeeting, final DataStatus status) {
         meetingsCollection.document(myUserUID).collection(metUserUID).document(currentMeeting).set(meet)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        getMeetingsCount(myUserUID,metUserUID);
+                        getMeetingsCount(myUserUID, metUserUID);
                         status.Success();
                     }
                 })
@@ -143,7 +147,7 @@ public class FirebaseDatabaseHelper {
 
     }
 
-    public void getMeetingsCount(String myUserID, String metUserUID){
+    public void getMeetingsCount(String myUserID, String metUserUID) {
 
         meetingsCollection.document(myUserID).collection(metUserUID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -151,10 +155,10 @@ public class FirebaseDatabaseHelper {
                 if (task.isSuccessful()) {
                     int count = 0;
                     for (DocumentSnapshot document : task.getResult()) {
-                        Log.d(TAG, "" + document.getData() );
+                        Log.d(TAG, "" + document.getData());
                         count++;
                     }
-                    Log.d(TAG, "n meetings : " + count );
+                    Log.d(TAG, "n meetings : " + count);
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }

@@ -236,7 +236,7 @@ public class registerActivity extends AppCompatActivity implements
                             final String phoneNumber = "+212" + mPhoneNumberField.getEditText().getText().toString();
                             Log.d(TAG, "onComplete: " + token);
 
-                            final User newUser = new User(phoneNumber, "Healthy");
+                            final User newUser = new User(mAuth.getUid(),phoneNumber, "Healthy");
 
                             FirebaseDatabaseHelper.getInstance().addUser(newUser, context, new FirebaseDatabaseHelper.DataStatus() {
                                 @Override

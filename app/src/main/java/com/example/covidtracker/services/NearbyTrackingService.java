@@ -22,6 +22,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 import com.example.covidtracker.R;
+import com.example.covidtracker.SharedPrefsHelper;
 import com.example.covidtracker.Utils;
 import com.example.covidtracker.ui.activities.LoggedInActivity;
 import com.google.android.gms.location.LocationRequest;
@@ -49,6 +50,8 @@ public class NearbyTrackingService extends Service {
     private long onFoundStart = -1;
     private long contactDuration = -1;
     private String serviceStatus = "stopped";
+    SharedPrefsHelper prefs = new SharedPrefsHelper(context);
+
 
 
     @Nullable
@@ -62,8 +65,7 @@ public class NearbyTrackingService extends Service {
         Log.d(TAG, "created nearbysrvc ");
 
         super.onCreate();
-        SharedPreferences prefs = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        myUserUID = prefs.getString(getString(R.string.UID), "None");
+        myUserUID = prefs.getDeviceUUID();
 
         myUserUIDMessage = new Message(myUserUID.getBytes());
         messageListener = new MessageListener() {

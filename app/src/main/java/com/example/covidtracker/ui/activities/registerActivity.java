@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.covidtracker.SharedPrefsHelper;
 import com.example.covidtracker.models.User;
 import com.example.covidtracker.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,7 +62,8 @@ public class registerActivity extends AppCompatActivity implements
     private Button mVerifyButton;
     private Button mResendButton;
 
-    String token = "";
+    String token ="";
+    SharedPrefsHelper prefs = new SharedPrefsHelper(context);
 
 
     @Override
@@ -74,6 +76,7 @@ public class registerActivity extends AppCompatActivity implements
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
+
 
 
         mPhoneNumberField = findViewById(R.id.fieldPhoneNumber);
@@ -225,11 +228,8 @@ public class registerActivity extends AppCompatActivity implements
                                             // Get new Instance ID token
                                             token = task.getResult().getToken();
                                             Log.d(TAG, "token : " + token);
-                                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.putString(getString(R.string.token), token);
-                                            editor.putBoolean(getString(R.string.registered), true);
-                                            editor.commit();
+                                            prefs.setDeviceToken(token);
+                                            prefs.setIsRegistred(true);
                                         }
                                     });
 
@@ -242,12 +242,12 @@ public class registerActivity extends AppCompatActivity implements
                                 @Override
                                 public void Success() {
                                     Log.d(TAG, "Added user : " + newUser.getPhone() + "/" + newUser.getStatus() + "/" + token);
-                                    final SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString(getString(R.string.phone), phoneNumber);
-                                    editor.putString(getString(R.string.status), "Healthy");
-                                    editor.commit();
+
+                                    prefs.setPhoneNumber(phoneNumber);
+                                    prefs.setPhoneNumber("Healthy");
+
                                     Intent intent = new Intent(context, LoggedInActivity.class);
+
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }

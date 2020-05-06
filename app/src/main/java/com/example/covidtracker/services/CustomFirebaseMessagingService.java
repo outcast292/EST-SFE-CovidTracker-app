@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.example.covidtracker.R;
+import com.example.covidtracker.SharedPrefsHelper;
 import com.example.covidtracker.Utils;
 import com.example.covidtracker.ui.activities.LoggedInActivity;
 import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
@@ -29,7 +30,7 @@ import java.util.Map;
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "CustomFMService";
     private ArrayList<NotificationModel> notifs = new ArrayList<NotificationModel>(0);
-
+    SharedPrefsHelper prefs = new SharedPrefsHelper(getApplicationContext());
 
 
     @Override
@@ -37,10 +38,9 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(s);
         Log.d(TAG, "newToken : " + s);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
-        String token = sharedPreferences.getString(getString(R.string.token), "None");
+        final String strUserUID = prefs.getDeviceUUID();
+        final String token = prefs.getDeviceToken();
 
 
         FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
@@ -61,10 +61,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         Log.d(TAG, "notifs: " + remoteMessage.getData());
 
-        addNotification(remoteMessage.getData());
-
-
-
+        prefs.addNotification(remoteMessage.getData());
     }
 
     private void sendNotification(String messageBody) {
@@ -97,6 +94,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(0, notificationBuilder.build());
     }
 
+    /*
     public void addNotification(Map<String, String> data) {
         SharedPreferences sharedPrefs = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
@@ -120,7 +118,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         editor.putString(getString(R.string.notificationsStack), json);
         editor.commit();
 
-    }
+    }*/
 
     public ArrayList<NotificationModel> getNotifications() {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);

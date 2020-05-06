@@ -15,6 +15,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.covidtracker.SharedPrefsHelper;
 import com.example.covidtracker.services.CustomFirebaseMessagingService;
 import com.example.covidtracker.services.NearbyTrackingService;
 import com.example.covidtracker.R;
@@ -29,6 +30,7 @@ public class LoggedInActivity extends AppCompatActivity {
     TextView uid;
     private String myUserUID;
     Switch serviceSwitch ;
+    SharedPrefsHelper prefs;
 
 
 
@@ -39,13 +41,11 @@ public class LoggedInActivity extends AppCompatActivity {
 
         final Intent serviceIntent = new Intent(getApplication(), NearbyTrackingService.class);
         final Intent FCMIntent = new Intent(getApplication(), CustomFirebaseMessagingService.class);
+        SharedPrefsHelper prefs = new SharedPrefsHelper(getApplicationContext());
 
 
-        startService(FCMIntent);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
-        String token = sharedPreferences.getString(getString(R.string.token), "None");
+        final String strUserUID = prefs.getDeviceUUID();
+        final String token = prefs.getDeviceToken();
 
         Log.d("TAG", "uid: " + strUserUID);
         Log.d("TAG", "token: " + token);
@@ -62,6 +62,7 @@ public class LoggedInActivity extends AppCompatActivity {
             }
         });
 
+        startService(FCMIntent);
         startService(serviceIntent);
 
 

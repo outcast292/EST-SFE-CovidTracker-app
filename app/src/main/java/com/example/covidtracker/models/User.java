@@ -1,21 +1,24 @@
 package com.example.covidtracker.models;
 
+import com.google.firebase.firestore.Exclude;
+
 public class User {
     public String phone;
+    private String uid;
     public String status;
     //public String token;
 
     public User() {
 
     }
-
-   /* public void setToken(String token) {
-        this.token = token;
+    @Exclude
+    public String getUid() {
+        return uid;
     }
 
-    public String getToken() {
-        return token;
-    }*/
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getPhone() {
         return phone;
@@ -33,7 +36,8 @@ public class User {
         this.status = status;
     }
 
-    public User(String phone, String status) {
+    public User(String uid, String phone, String status) {
+        this.uid = uid;
         this.phone = phone;
         this.status = status;
         //this.token = token;

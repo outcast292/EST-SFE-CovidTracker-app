@@ -63,16 +63,20 @@ public class registerActivity extends AppCompatActivity implements
     private Button mResendButton;
 
     String token ="";
-    SharedPrefsHelper prefs = new SharedPrefsHelper(context);
+
+    SharedPrefsHelper prefs;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        context = this;
         String token = "";
 
+        prefs = new SharedPrefsHelper(getApplicationContext());
+
+
+        context = getApplicationContext();
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
@@ -238,13 +242,13 @@ public class registerActivity extends AppCompatActivity implements
 
                             final User newUser = new User(mAuth.getUid(),phoneNumber, "Healthy");
 
-                            FirebaseDatabaseHelper.getInstance().addUser(newUser, context, new FirebaseDatabaseHelper.DataStatus() {
+                            FirebaseDatabaseHelper.getInstance().addUser(newUser, getApplicationContext(), new FirebaseDatabaseHelper.DataStatus() {
                                 @Override
                                 public void Success() {
                                     Log.d(TAG, "Added user : " + newUser.getPhone() + "/" + newUser.getStatus() + "/" + token);
 
                                     prefs.setPhoneNumber(phoneNumber);
-                                    prefs.setPhoneNumber("Healthy");
+                                    prefs.setHealthStatus("Healthy");
 
                                     Intent intent = new Intent(context, LoggedInActivity.class);
 

@@ -70,15 +70,6 @@ public class NotificationsFragment extends Fragment {
         Log.d(TAG, "onCreateView: list" + list);
         return rootview;
     }
-    /*
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(NotificationsViewModel.class);
-        // TODO: Use the ViewModel
-    }
-*/
-
 
     public ArrayList<NotificationModel> getNotifications() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);

@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.covidtracker.R;
+import com.example.covidtracker.SharedPrefsHelper;
 import com.example.covidtracker.Utils;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +35,8 @@ import java.util.Map;
 public class FirebaseDatabaseHelper {
 
     private static final String TAG = "FirebaseDatabaseHelper";
+    SharedPrefsHelper prefs;
+
 
     private FirebaseFirestoreSettings dbsettings = new FirebaseFirestoreSettings.Builder()
             .setPersistenceEnabled(true)
@@ -63,16 +66,15 @@ public class FirebaseDatabaseHelper {
     }
 
     public void addUser(User user, final Context context, final DataStatus status) {
+        prefs = new SharedPrefsHelper(context);
+
         final DocumentReference newUserRef = usersCollection.document(user.getUid());
         newUserRef.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(context.getString(R.string.UID), newUserRef.getId());
+                        prefs.setDeviceUID(newUserRef.getId());
                         Log.d(TAG, "Added: " + newUserRef.getId());
-                        editor.commit();
                         status.Success();
                     }
                 })

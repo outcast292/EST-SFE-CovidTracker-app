@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.covidtracker.SharedPrefsHelper;
+import com.example.covidtracker.ui.activities.fragments.healthFragment;
 import com.example.covidtracker.services.CustomFirebaseMessagingService;
 import com.example.covidtracker.services.NearbyTrackingService;
 import com.example.covidtracker.R;
@@ -97,6 +96,9 @@ public class LoggedInActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_settings:
                             selectedFrag = new settingsFragment();
+                            break;
+                        case R.id.nav_health:
+                            selectedFrag = new healthFragment();
                             break;
                     }
 

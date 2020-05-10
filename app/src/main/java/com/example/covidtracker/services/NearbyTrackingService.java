@@ -50,7 +50,6 @@ public class NearbyTrackingService extends Service {
     private long onFoundStart = -1;
     private long contactDuration = -1;
     private String serviceStatus = "stopped";
-    SharedPrefsHelper prefs = new SharedPrefsHelper(context);
 
 
 
@@ -65,6 +64,8 @@ public class NearbyTrackingService extends Service {
         Log.d(TAG, "created nearbysrvc ");
 
         super.onCreate();
+        SharedPrefsHelper prefs = new SharedPrefsHelper(getBaseContext());
+
         myUserUID = prefs.getDeviceUUID();
 
         myUserUIDMessage = new Message(myUserUID.getBytes());

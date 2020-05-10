@@ -30,14 +30,13 @@ import java.util.Map;
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "CustomFMService";
     private ArrayList<NotificationModel> notifs = new ArrayList<NotificationModel>(0);
-    SharedPrefsHelper prefs = new SharedPrefsHelper(getApplicationContext());
+    SharedPrefsHelper prefs;
 
 
     @Override
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
         Log.d(TAG, "newToken : " + s);
-
 
         final String strUserUID = prefs.getDeviceUUID();
         final String token = prefs.getDeviceToken();
@@ -59,6 +58,9 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        
+        SharedPrefsHelper prefs = new SharedPrefsHelper(getBaseContext());
+
         Log.d(TAG, "notifs: " + remoteMessage.getData());
 
         prefs.addNotification(remoteMessage.getData());

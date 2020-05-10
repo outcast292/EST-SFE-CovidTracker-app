@@ -25,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        termscb = findViewById(R.id.check_box);
-
-
     }
 
 

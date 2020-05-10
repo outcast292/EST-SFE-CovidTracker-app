@@ -13,6 +13,7 @@
     <color name="textdark">#a6b1e1</color>
     <color name="bglight">#dcd6f7</color>
     <color name="smellOfSuccess">#75C46B</color>
+    <color name="failureStinks">#FC100D</color>
 
 
 

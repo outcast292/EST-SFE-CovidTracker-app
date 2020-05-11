@@ -87,10 +87,10 @@ public class SymptomLogAdapter extends ArrayAdapter<SymptomLogModel> {
 
         String displaySymptoms = "";
 
-        for (int i = 0 ; i <= list.get(position).getSymptoms().size() ; i++){
+        for (int i = 0 ; i < list.get(position).getSymptoms().size() ; i++){
             String str = list.get(position).getSymptoms().get(i);
 
-            if(i!=list.get(position).getSymptoms().size())
+            if(i+1!=list.get(position).getSymptoms().size())
             {
                 displaySymptoms = displaySymptoms + str + ",";
             }else{

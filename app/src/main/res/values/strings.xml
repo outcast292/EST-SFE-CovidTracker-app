@@ -11,6 +11,7 @@
     <string name="meeting_explanation">Quelqu\'un avec qui vous étiez à proximité a été diagnostiqué positif pour covid-19.</string>
     <string name="contact_medic">Veuillez contacter votre medecin!</string>
     <string name="disclaimer">Toute information collectée par Covid Tracker est sécurisé, avec maintien de votre vie privée.</string>
+    <string name="disclaimer1">Ces informations sont enregistrer sur votre appareil, et restent privées pour vous.</string>
     <string name="text_permissions">En vous inscrivant, vous acceptez de:</string>
     <string name="text_permissions_1">- Surveiller et stocker les personnes avec lesquelles vous entrez en contact (l\'identité reste inconnue)</string>
     <string name="text_permissions_2">- Stockage de votre numéro de téléphone</string>

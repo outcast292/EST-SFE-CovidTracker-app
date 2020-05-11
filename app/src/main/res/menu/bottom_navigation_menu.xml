@@ -5,7 +5,7 @@
         android:icon="@drawable/ic_home_black_18dp"/>
     <item android:title="Health"
         android:id="@+id/nav_health"
-        android:icon="@drawable/ic_menu_24px"/>
+        android:icon="@drawable/ic_lifeline_in_a_heart_outline"/>
     <item android:title="Notifications"
         android:id="@+id/nav_notifs"
         android:icon="@drawable/ic_menu_24px"/>

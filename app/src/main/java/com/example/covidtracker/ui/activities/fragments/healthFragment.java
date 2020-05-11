@@ -26,8 +26,8 @@ import java.util.Date;
 public class healthFragment extends Fragment {
     private static final String TAG = "healthFragment" ;
     ImageButton add;
-    ImageView icon;
-    TextView date,status;
+    ImageView icon,noLog;
+    TextView date,status,noLogText;
     SharedPrefsHelper prefs;
     ListView lv;
     SymptomLogAdapter mAdapter;
@@ -48,7 +48,6 @@ public class healthFragment extends Fragment {
         date = rootview.findViewById(R.id.date_lastcheck);
         icon = rootview.findViewById(R.id.statusIcon);
         lv = rootview.findViewById(R.id.lisstview);
-        mAdapter = new SymptomLogAdapter(getContext(), R.layout.symptom_log_layout , prefs.getSymptomsLog());
 
         Date alsoNow = Calendar.getInstance().getTime();
         String nowAsString = new SimpleDateFormat("yyyy-MM-dd").format(now);
@@ -57,7 +56,7 @@ public class healthFragment extends Fragment {
 
         if(nowAsString.equals(prefs.getSymptomsLastdate())){
             add.setVisibility(View.GONE);
-            date.setText("Date du dernier log :" + prefs.getSymptomsLastdate());
+            date.setText("Date du dernier log : " + prefs.getSymptomsLastdate());
             icon.setImageResource(R.drawable.ic_check_circle_outline_24px);
             icon.setColorFilter(getResources().getColor(R.color.smellOfSuccess));
 
@@ -73,6 +72,21 @@ public class healthFragment extends Fragment {
 
         }
 
+        if(prefs.getSymptomsLog() != null && prefs.getSymptomsLog().size() > 0){
+            mAdapter = new SymptomLogAdapter(getContext(), R.layout.symptom_log_layout , prefs.getSymptomsLog());
+            lv.setAdapter(mAdapter);
+            lv.setVisibility(View.VISIBLE);
+            mAdapter.notifyDataSetChanged();
+
+        }else{
+            Log.d(TAG, "emptyy");
+            noLog = rootview.findViewById(R.id.noLog);
+            noLogText = rootview.findViewById(R.id.noLogText);
+            noLog.setVisibility(View.VISIBLE);
+            noLogText.setVisibility(View.VISIBLE);
+        }
+
+
         add.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -81,9 +95,7 @@ public class healthFragment extends Fragment {
        });
 
 
-        lv.setAdapter(mAdapter);
 
-        mAdapter.notifyDataSetChanged();
 
 
 

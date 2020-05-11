@@ -83,21 +83,21 @@ public class SymptomLogAdapter extends ArrayAdapter<SymptomLogModel> {
         lastPosition = position;
 */
 
-        list.get(position).getSymptoms().get(0);
 
         String displaySymptoms = "";
 
-        for (int i = 0 ; i <= list.get(position).getSymptoms().size() ; i++){
-            String str = list.get(position).getSymptoms().get(i);
 
-            if(i!=list.get(position).getSymptoms().size())
-            {
-                displaySymptoms = displaySymptoms + str + ",";
-            }else{
-                displaySymptoms = displaySymptoms + str + ".";
+            for (int i = 0 ; i < list.get(position).getSymptoms().size() ; i++){
+                String str = list.get(position).getSymptoms().get(i);
+
+                if(i!=list.get(position).getSymptoms().size() - 1)
+                {
+                    displaySymptoms = displaySymptoms + str + ", ";
+                }else{
+                    displaySymptoms = displaySymptoms + str + ".";
+                }
+
             }
-
-        }
 
         holder.date.setText("Date du log : " + list.get(position).getDate());
         holder.brief.setText("Symptoms : " + displaySymptoms);

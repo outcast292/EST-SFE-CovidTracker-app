@@ -7,14 +7,6 @@
     >
 
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="azeaze"
-        android:layout_weight="2"
-        android:layout_marginBottom="10dp"/>
-
         <RelativeLayout
             android:id="@+id/Layout"
             android:layout_width="match_parent"

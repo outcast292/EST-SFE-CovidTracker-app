@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -36,6 +37,7 @@ public class SymptomAdapter extends ArrayAdapter<SymptomModel> {
     private int lastPosition = -1;
     private ArrayList<SymptomModel> list ;
     private ArrayList<SymptomLogModel> logModel = new ArrayList<SymptomLogModel>(0) ;
+    Button clear;
 
     Date now = new Date();
 
@@ -116,9 +118,12 @@ public class SymptomAdapter extends ArrayAdapter<SymptomModel> {
 
                 if(b){
                     chosen.add(list.get(position).getName());
+
                 }else{
                     chosen.remove(list.get(position).getName());
                 }
+
+                Log.d(TAG, "onCheckedChanged: chosen " + chosen.toString());
 
                 Date alsoNow = Calendar.getInstance().getTime();
                 String nowAsString = new SimpleDateFormat("yyyy-MM-dd").format(now);
@@ -139,6 +144,7 @@ public class SymptomAdapter extends ArrayAdapter<SymptomModel> {
     public SymptomLogModel getLog() {
         return log;
     }
+
 
 
 

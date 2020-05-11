@@ -71,6 +71,7 @@ public class NearbyTrackingService extends Service {
         myUserUIDMessage = new Message(myUserUID.getBytes());
         messageListener = new MessageListener() {
             private String currentMeeting ;
+            private String meetingDate ;
             @Override
             public void onFound(Message message) {
                 currentMeeting =  "meeting_" + Utils.getAlphaNumericString(20);
@@ -81,14 +82,12 @@ public class NearbyTrackingService extends Service {
                 Toast.makeText(context,"Found user :" + metUserUID, Toast.LENGTH_LONG).show();
 
                 final Meet meet = new Meet(FieldValue.serverTimestamp(), FieldValue.serverTimestamp(), "ongoing");
-
+                meetingDate = meet.getDate();
                 onFoundStart = System.currentTimeMillis();
-                Date time = Calendar.getInstance().getTime();
-                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                String formattedDate = df.format(time);
-
+                //Date time = Calendar.getInstance().getTime();
+                //SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+               // String formattedDate = df.format(time);
                 LocationRequest mLocationRequest = new LocationRequest();
-
                 mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 /*
                 getFusedLocationProviderClient(getApplicationContext()).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -134,7 +133,7 @@ public class NearbyTrackingService extends Service {
                 String filePath = getApplicationContext().getFilesDir().toString() + "/meetings" + "/" + metUserUID;
                 writeToStorage(filePath, "duration.txt", String.valueOf(contactDuration));
 
-                FirebaseDatabaseHelper.getInstance().updateMeetingEnding(myUserUID, metUserUID, currentMeeting, FieldValue.serverTimestamp(), new FirebaseDatabaseHelper.DataStatus() {
+                FirebaseDatabaseHelper.getInstance().updateMeetingEnding(myUserUID, metUserUID,meetingDate, currentMeeting, FieldValue.serverTimestamp(), new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void Success() {
                         Log.d(TAG, "Updated meeting");

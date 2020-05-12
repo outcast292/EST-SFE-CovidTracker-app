@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,7 +64,14 @@ public class LoggedInActivity extends AppCompatActivity {
         });
 
         startService(FCMIntent);
-        startService(serviceIntent);
+        if(isMyServiceRunning(NearbyTrackingService.class)){
+            Log.d("Service", "Service isnt running ");
+            startService(serviceIntent);
+        }
+        else{
+            Log.d("Service", "Service  running ");
+
+        }
 
 
         BottomNavigationView botnav = findViewById(R.id.bottom_navigation);
@@ -107,5 +116,13 @@ public class LoggedInActivity extends AppCompatActivity {
                     return true;
                 }
             };
-
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

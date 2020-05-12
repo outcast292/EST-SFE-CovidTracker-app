@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.example.covidtracker.R;
 import com.example.covidtracker.SharedPrefsHelper;
 import com.example.covidtracker.Utils;
+import com.example.covidtracker.ui.symptoms.symptoms_log.SymptomLogModel;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +41,7 @@ public class FirebaseDatabaseHelper {
 
     private FirebaseFirestoreSettings dbsettings = new FirebaseFirestoreSettings.Builder()
             .setPersistenceEnabled(true)
+            .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
             .build();
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -148,6 +150,23 @@ public class FirebaseDatabaseHelper {
                 });
 
     }
+    public void addSymptom(final String myUserUID, SymptomLogModel symptom,String date, final DataStatus status) {
+        usersCollection.document(myUserUID).collection("symptoms").document(date).set(symptom)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        status.Success();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        status.Fail();
+                    }
+                });
+    }
+
+
 
     public void getMeetingsCount(String myUserID, String metUserUID) {
 

@@ -145,7 +145,7 @@ public class SharedPrefsHelper {
 
     public void setSymptomsLog(SymptomLogModel log){
 
-        ArrayList<SymptomLogModel> logs = new ArrayList<SymptomLogModel>();
+        ArrayList<SymptomLogModel> logs = new ArrayList<>();
         
         if(!getSymptomsLog().isEmpty()){
             Log.d(TAG, "setSymptomsLog : " + getSymptomsLog().size());

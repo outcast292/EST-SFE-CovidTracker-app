@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.covidtracker.R;
 import com.example.covidtracker.SharedPrefsHelper;
+import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
 import com.example.covidtracker.ui.activities.fragments.healthFragment;
 import com.example.covidtracker.ui.activities.fragments.homeFragment;
 import com.example.covidtracker.ui.notifications.NotificationAdapter;
@@ -24,7 +26,9 @@ import com.example.covidtracker.ui.symptoms.symptoms_log.SymptomLogModel;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class AddSymptomFragment extends Fragment {
@@ -83,12 +87,27 @@ public class AddSymptomFragment extends Fragment {
                     {
                         prefs.setSymptomsLog(mAdapter.getLog());
                         prefs.setSymptomsLastdate(mAdapter.getLog().getDate());
+                        FirebaseDatabaseHelper.getInstance().addSymptom( prefs.getDeviceUUID(),mAdapter.getLog(),new SimpleDateFormat("yyyy-MM-dd").format(new Date()),new FirebaseDatabaseHelper.DataStatus() {
+
+                            @Override
+                            public void Success() {
+                                Log.d(TAG, "Inserted Symptoms");
+                                Log.d(TAG, mAdapter.getLog().toString());
+                            }
+
+                            @Override
+                            public void Fail() {
+                                Log.d(TAG, "Failed inserting Symptoms");
+
+                            }
+                        });
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new healthFragment()).commit();
+
                     }else{
-                        showDialog("Erreur","Veuiller selectionner des symptoms out annuler.");
+                        showDialog("Erreur","Veuiller selectionner des symptoms ou annuler.");
                     }
                 }else{
-                    showDialog("Erreur","Veuiller selectionner des symptoms out annuler.");
+                    showDialog("Erreur","Veuiller selectionner des symptoms ou annuler.");
 
                 }
             

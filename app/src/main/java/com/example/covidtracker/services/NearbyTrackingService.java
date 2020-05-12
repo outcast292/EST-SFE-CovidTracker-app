@@ -50,6 +50,7 @@ public class NearbyTrackingService extends Service {
     private long onFoundStart = -1;
     private long contactDuration = -1;
     private String serviceStatus = "stopped";
+    public  static  boolean running = false;
 
 
 
@@ -173,6 +174,7 @@ public class NearbyTrackingService extends Service {
                 .setContentIntent(pendingIntent)
                 .build();
         startForeground(1, notification);
+        running = true;
         return START_STICKY;
     }
 
@@ -180,6 +182,7 @@ public class NearbyTrackingService extends Service {
     public void onDestroy() {
         super.onDestroy();
         serviceStatus = "stopped";
+        running = false;
         sendMessageToActivity(serviceStatus, "msg" , context);
         Log.d(TAG, "onDestroy: called");
         Nearby.getMessagesClient(this).unpublish(myUserUIDMessage);
@@ -192,7 +195,7 @@ public class NearbyTrackingService extends Service {
         Log.d(TAG, "onDestroy: called");
         Nearby.getMessagesClient(this).unpublish(myUserUIDMessage);
         Nearby.getMessagesClient(this).unsubscribe(messageListener);
-
+        running = false;
         return super.stopService(name);
 
     }
@@ -218,6 +221,10 @@ public class NearbyTrackingService extends Service {
         b.putString("serviceStatus", l);
         intent.putExtra("serviceStatus", b);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
+    public static boolean isRunning(){
+        return running;
     }
 
 

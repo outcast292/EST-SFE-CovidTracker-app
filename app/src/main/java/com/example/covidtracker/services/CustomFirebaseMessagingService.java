@@ -37,9 +37,17 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
         Log.d(TAG, "newToken : " + s);
+        String strUserUID;
+        String token;
+        try {
+            strUserUID = prefs.getDeviceUUID();
+            token = prefs.getDeviceToken();
 
-        final String strUserUID = prefs.getDeviceUUID();
-        final String token = prefs.getDeviceToken();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Log.d(TAG, "UID isnt Setted Yet");
+            return;
+        }
 
 
         FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
@@ -58,7 +66,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        
+
         SharedPrefsHelper prefs = new SharedPrefsHelper(getBaseContext());
 
         Log.d(TAG, "notifs: " + remoteMessage.getData());
@@ -69,7 +77,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(String messageBody) {
         Intent intent = new Intent(this, LoggedInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = getString(R.string.default_notification_channel_id);
@@ -126,10 +134,11 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString(getString(R.string.notificationsStack), "");
-        Type type = new TypeToken<ArrayList<NotificationModel>>() {}.getType();
+        Type type = new TypeToken<ArrayList<NotificationModel>>() {
+        }.getType();
         ArrayList<NotificationModel> arrayList = gson.fromJson(json, type);
 
-        return  arrayList;
+        return arrayList;
     }
 
 }

@@ -24,6 +24,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import android.content.SharedPreferences;
@@ -166,6 +167,26 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
+    public void getSymptoms(final  String myUserUID,final DataStatus status){
+        usersCollection.document(myUserUID).collection("symptoms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG, "Success getting Symptoms: ");
+                    SymptomLogModel log = null;
+                    for (QueryDocumentSnapshot doc : task.getResult()){
+                        log  = doc.toObject(SymptomLogModel.class);
+                        prefs.setSymptomsLog(log);
+                    }
+                    prefs.setSymptomsLastdate(log.getDate());
+                }
+                else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+
+    }
 
 
     public void getMeetingsCount(String myUserID, String metUserUID) {

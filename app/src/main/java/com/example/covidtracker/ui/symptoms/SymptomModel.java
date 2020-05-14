@@ -4,7 +4,9 @@ public class SymptomModel {
 
     String id;
     String name,description;
+    public SymptomModel() {
 
+    }
     public SymptomModel(String id, String name, String description) {
         this.id = id;
         this.name = name;

@@ -249,6 +249,19 @@ public class registerActivity extends AppCompatActivity implements
 
                                     prefs.setPhoneNumber(phoneNumber);
                                     prefs.setHealthStatus("Healthy");
+                                    FirebaseDatabaseHelper.getInstance().getSymptoms(mAuth.getUid(), new FirebaseDatabaseHelper.DataStatus() {
+                                        @Override
+                                        public void Success() {
+                                            Log.d(TAG, "Got Symptomes : ");
+
+                                        }
+
+                                        @Override
+                                        public void Fail() {
+                                            Log.d(TAG, "failed Got Symptomes : ");
+
+                                        }
+                                    });
 
                                     Intent intent = new Intent(context, LoggedInActivity.class);
 

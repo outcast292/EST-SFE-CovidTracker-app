@@ -6,7 +6,9 @@ public class SymptomLogModel {
 
     String date;
     private ArrayList<String> symptoms;
+    public SymptomLogModel() {
 
+    }
     public SymptomLogModel(String date, ArrayList<String> symptoms) {
         this.date = date;
         this.symptoms = symptoms;

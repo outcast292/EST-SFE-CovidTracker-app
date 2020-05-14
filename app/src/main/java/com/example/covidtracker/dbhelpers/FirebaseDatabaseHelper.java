@@ -174,10 +174,12 @@ public class FirebaseDatabaseHelper {
                 if(task.isSuccessful()){
                     Log.d(TAG, "Success getting Symptoms: ");
                     SymptomLogModel log = null;
+
                     for (QueryDocumentSnapshot doc : task.getResult()){
                         log  = doc.toObject(SymptomLogModel.class);
                         prefs.setSymptomsLog(log);
                     }
+                    if(log!=null)
                     prefs.setSymptomsLastdate(log.getDate());
                 }
                 else {

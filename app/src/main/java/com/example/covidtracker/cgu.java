@@ -32,7 +32,7 @@ public class cgu extends Fragment {
         mWebview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mWebview.getSettings().setJavaScriptEnabled(true);
 
-        mWebview.loadUrl("https://firebasestorage.googleapis.com/v0/b/covid-tracer-274905.appspot.com/o/null.html?alt=media&token=8116f715-dc5f-4338-8be2-991bd97ab302");
+        mWebview.loadUrl("https://covid-tracer-274905.web.app/index.html");
 
 
         return rootview;

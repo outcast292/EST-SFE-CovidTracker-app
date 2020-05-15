@@ -91,11 +91,11 @@ public class SharedPrefsHelper {
         Gson gson = new Gson();
 
         String json = pref.getString(NOTIFICATIONS_STACK, "");
-
-        Type type = new TypeToken<ArrayList<NotificationModel>>() {}.getType();
-
-        ArrayList<NotificationModel> arrayList = gson.fromJson(json, type);
-
+        ArrayList<NotificationModel> arrayList = new ArrayList<>();
+        if(json != ""){
+            Type type = new TypeToken<ArrayList<NotificationModel>>() {}.getType();
+          arrayList  = gson.fromJson(json, type);
+        }
         return  arrayList;
     }
 

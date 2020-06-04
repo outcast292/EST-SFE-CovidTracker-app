@@ -8,10 +8,18 @@
 
 
     <include
+        android:id="@+id/self_report"
+        layout="@layout/self_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <include
         android:id="@+id/symptoms_reminder"
         layout="@layout/symptoms_reminder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/self_report"/>
+
 
     <TextView
         android:id="@+id/symptoms"

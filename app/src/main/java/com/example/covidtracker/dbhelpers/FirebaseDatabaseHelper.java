@@ -13,6 +13,7 @@ import com.example.covidtracker.ui.symptoms.symptoms_log.SymptomLogModel;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
@@ -132,6 +133,29 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
+    public void updateUser(String myUserID, final DataStatus status){
+
+        DocumentReference meetToUpdate = usersCollection.document(myUserID);
+        Map<String, Object> updatedFields = new HashMap<>();
+        updatedFields.put("status", "?Contamined");
+        updatedFields.put("last_status", prefs.getHealthStatus());
+        updatedFields.put("update_timestamp", System.currentTimeMillis());
+
+        meetToUpdate.update(updatedFields)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        status.Success();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        status.Fail();
+                    }
+                });
+
+    }
     public void updateDeviceToken(String myUserID, String deviceToken, final DataStatus status) {
         DocumentReference userToUpdate = usersCollection.document(myUserID);
         Map<String, Object> updatedFields = new HashMap<>();

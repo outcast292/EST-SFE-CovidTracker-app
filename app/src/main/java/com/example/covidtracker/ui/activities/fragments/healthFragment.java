@@ -31,6 +31,7 @@ public class healthFragment extends Fragment {
     SharedPrefsHelper prefs;
     ListView lv;
     SymptomLogAdapter mAdapter;
+    Button report;
 
     Date now = new Date();
 
@@ -44,6 +45,7 @@ public class healthFragment extends Fragment {
         prefs = new SharedPrefsHelper(getContext());
 
         add = rootview.findViewById(R.id.add);
+        report = rootview.findViewById(R.id.selfRep);
         status = rootview.findViewById(R.id.status);
         date = rootview.findViewById(R.id.date_lastcheck);
         icon = rootview.findViewById(R.id.statusIcon);
@@ -94,6 +96,13 @@ public class healthFragment extends Fragment {
            }
        });
 
+
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
 

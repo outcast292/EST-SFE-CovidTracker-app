@@ -138,7 +138,6 @@ public class FirebaseDatabaseHelper {
         DocumentReference meetToUpdate = usersCollection.document(myUserID);
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("status", "?Contamined");
-        updatedFields.put("last_status", prefs.getHealthStatus());
         updatedFields.put("update_timestamp", System.currentTimeMillis());
 
         meetToUpdate.update(updatedFields)

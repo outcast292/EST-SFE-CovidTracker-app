@@ -13,9 +13,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.covidtracker.R;
 import com.example.covidtracker.SharedPrefsHelper;
+import com.example.covidtracker.dbhelpers.FirebaseDatabaseHelper;
 import com.example.covidtracker.ui.symptoms.AddSymptomFragment;
 import com.example.covidtracker.ui.symptoms.symptoms_log.SymptomLogAdapter;
 
@@ -100,7 +102,18 @@ public class healthFragment extends Fragment {
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseDatabaseHelper.getInstance().updateUser(prefs.getDeviceUUID(), new FirebaseDatabaseHelper.DataStatus() {
+                    @Override
+                    public void Success() {
+                        Log.d(TAG, "updated user");
+                    }
 
+                    @Override
+                    public void Fail() {
+                        Log.d(TAG, "Failed updating user");
+
+                    }
+                });
             }
         });
 

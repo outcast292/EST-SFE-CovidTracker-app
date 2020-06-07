@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,9 +26,9 @@ import com.example.covidtracker.services.NearbyTrackingService;
 
 public class homeFragment extends Fragment {
     private String serviceStatus;
-    CardView serviceState ;
-    private static final String TAG = "homeFragment" ;
-    TextView serviceTitle ;
+    CardView serviceState;
+    private static final String TAG = "homeFragment";
+    TextView serviceTitle;
     Switch switchService;
 
 
@@ -38,7 +39,7 @@ public class homeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 //        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
-               // mMessageReceiver, new IntentFilter("NearbyTrackingService"));
+        // mMessageReceiver, new IntentFilter("NearbyTrackingService"));
 
 
         final Intent serviceIntent = new Intent(getActivity(), NearbyTrackingService.class);
@@ -48,34 +49,60 @@ public class homeFragment extends Fragment {
 
         switchService.setChecked(true);
 
-        if (switchService.isChecked()){
+        if (switchService.isChecked()) {
             getActivity().startService(serviceIntent);
             updateUI(switchService.isChecked());
         }
         switchService.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     getActivity().startService(serviceIntent);
-                }else{
+                } else {
                     getActivity().stopService(serviceIntent);
                 }
 
                 updateUI(b);
             }
         });
+        CardView cardView = view.findViewById(R.id.corangular);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("http://corangular19.rf.gd/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        CardView cardView2 = view.findViewById(R.id.covidMaroc);
+        cardView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("http://www.covidmaroc.ma/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        CardView cardView3 = view.findViewById(R.id.call_yaqada);
+        cardView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_CALL);
 
-
+                intent.setData(Uri.parse("tel:+212801004747" ));
+                startActivity(intent);
+            }
+        });
 
 
         return view;
     }
 
 
-    public void updateUI(boolean serviceStatus){
-        if (serviceStatus){
+    public void updateUI(boolean serviceStatus) {
+        if (serviceStatus) {
             serviceTitle.setText("Découverte active");
-        }else{
+        } else {
             serviceTitle.setText("Découverte inactive");
 
         }

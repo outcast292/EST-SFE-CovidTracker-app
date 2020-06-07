@@ -102,7 +102,7 @@ public class healthFragment extends Fragment {
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabaseHelper.getInstance().updateUser(prefs.getDeviceUUID(), new FirebaseDatabaseHelper.DataStatus() {
+                FirebaseDatabaseHelper.getInstance().updateUser(prefs.getDeviceUUID(), getContext(), new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void Success() {
                         Log.d(TAG, "updated user");

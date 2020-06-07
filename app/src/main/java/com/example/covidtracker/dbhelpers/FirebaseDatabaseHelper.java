@@ -133,12 +133,13 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
-    public void updateUser(String myUserID, final DataStatus status){
-
+    public void updateUser(String myUserID,final Context context, final DataStatus status){
+        prefs = new SharedPrefsHelper(context);
         DocumentReference meetToUpdate = usersCollection.document(myUserID);
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("status", "?Contamined");
-        updatedFields.put("update_timestamp", System.currentTimeMillis());
+        updatedFields.put("update_timestamp", FieldValue.serverTimestamp());
+        updatedFields.put("last_status",prefs.getHealthStatus() );
 
         meetToUpdate.update(updatedFields)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

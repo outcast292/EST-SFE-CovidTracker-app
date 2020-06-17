@@ -67,6 +67,8 @@ public class diagFragment extends Fragment {
 
                     }
                 });
+
+
             }
         });
 

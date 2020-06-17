@@ -37,7 +37,7 @@ public class homeFragment extends Fragment {
     TextView serviceTitle,date ;
     Switch switchService;
     Date now = new Date();
-    View sympReminder;
+    View sympReminder,stayhome_alert;
     ImageButton add;
 
 
@@ -103,6 +103,14 @@ public class homeFragment extends Fragment {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new AddSymptomFragment()).commit();
                 }
             });
+        }
+
+        stayhome_alert = view.findViewById(R.id.stayhome_alert);
+
+        if(prefs.getHealthStatus().equals("Contamined") ){
+            stayhome_alert.setVisibility(View.VISIBLE);
+        }else{
+            stayhome_alert.setVisibility(View.GONE);
         }
 
         return view;

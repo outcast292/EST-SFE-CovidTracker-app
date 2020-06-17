@@ -2,12 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    >
 
-    <Button
-        android:id="@+id/selfRep"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Report"/>
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_report_problem_24px"
+            android:tint="@color/text"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Si vous ne vous sentez pas bien, envoyer un rapport!"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/text"
+            android:gravity="center"
+            android:textSize="18dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/text"
+                android:text="Je certifie que les informations dans ce rapport sont correctes et vrai."/>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/selfRep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ENVOYER VOTRE RAPPORT"
+            android:backgroundTint="@color/text"
+            />
+
+
+
+    </LinearLayout>
 
 </LinearLayout>

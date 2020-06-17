@@ -32,7 +32,7 @@ public class cgu extends Fragment {
         mWebview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
         mWebview.getSettings().setJavaScriptEnabled(true);
 
-        mWebview.loadUrl("https://covid-tracer-274905.web.app/index.html");
+        mWebview.loadUrl("https://cgu-covidtracer.web.app/");
 
 
         return rootview;

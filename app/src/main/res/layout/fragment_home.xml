@@ -134,6 +134,16 @@
                 android:layout_margin="10dp"
                 />
 
+
+            <include
+                android:id="@+id/symptoms_reminder"
+                layout="@layout/symptoms_reminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

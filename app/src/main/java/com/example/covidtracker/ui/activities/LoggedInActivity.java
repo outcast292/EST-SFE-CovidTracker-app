@@ -64,12 +64,15 @@ public class LoggedInActivity extends AppCompatActivity {
         });
 
         startService(FCMIntent);
+        startService(serviceIntent);
+
         if(isMyServiceRunning(NearbyTrackingService.class)){
             Log.d("Service", "Service isnt running ");
             startService(serviceIntent);
         }
         else{
             Log.d("Service", "Service  running ");
+
 
         }
 

@@ -33,7 +33,7 @@ public class healthFragment extends Fragment {
     SharedPrefsHelper prefs;
     ListView lv;
     SymptomLogAdapter mAdapter;
-    Button report;
+    Button report,fragmentSympt,fragmentDiag;
 
     Date now = new Date();
 
@@ -47,11 +47,12 @@ public class healthFragment extends Fragment {
         prefs = new SharedPrefsHelper(getContext());
 
         add = rootview.findViewById(R.id.add);
-        report = rootview.findViewById(R.id.selfRep);
         status = rootview.findViewById(R.id.status);
         date = rootview.findViewById(R.id.date_lastcheck);
         icon = rootview.findViewById(R.id.statusIcon);
         lv = rootview.findViewById(R.id.lisstview);
+        fragmentSympt = rootview.findViewById(R.id.fragmentSympt);
+        fragmentDiag = rootview.findViewById(R.id.fragmentDiag);
 
         Date alsoNow = Calendar.getInstance().getTime();
         String nowAsString = new SimpleDateFormat("yyyy-MM-dd").format(now);
@@ -98,27 +99,19 @@ public class healthFragment extends Fragment {
            }
        });
 
-
-        report.setOnClickListener(new View.OnClickListener() {
+        fragmentSympt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabaseHelper.getInstance().updateUser(prefs.getDeviceUUID(), new FirebaseDatabaseHelper.DataStatus() {
-                    @Override
-                    public void Success() {
-                        Log.d(TAG, "updated user");
-                    }
-
-                    @Override
-                    public void Fail() {
-                        Log.d(TAG, "Failed updating user");
-
-                    }
-                });
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new healthFragment()).commit();
             }
         });
 
-
-
+        fragmentDiag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new diagFragment()).commit();
+            }
+        });
 
 
 

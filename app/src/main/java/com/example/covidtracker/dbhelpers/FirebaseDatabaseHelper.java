@@ -177,7 +177,7 @@ public class FirebaseDatabaseHelper {
 
     }
 
-    public void getStatus(String myUserUID) {
+    public void getStatus(String myUserUID,final Context context) {
         usersCollection.document(myUserUID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -185,7 +185,13 @@ public class FirebaseDatabaseHelper {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        prefs.setHealthStatus(document.getData().get("status").toString());
+                        prefs = new SharedPrefsHelper(context);
+                        String status =  document.getData().get("status").toString();
+                        if(status!=null&& status!=""){
+                            prefs.setHealthStatus(status);
+                            Log.d(TAG, "onComplete: "+ status);
+
+                        }
                     } else {
                         Log.d(TAG, "No such document");
                     }

@@ -73,7 +73,12 @@ public class FirebaseDatabaseHelper {
         prefs = new SharedPrefsHelper(context);
 
         final DocumentReference newUserRef = usersCollection.document(user.getUid());
-        newUserRef.set(user)
+        Map<String, Object> addedValue = new HashMap<>();
+        addedValue.put("phone", user.getPhone());
+        addedValue.put("status", user.getStatus());
+        addedValue.put("update_timestamp",FieldValue.serverTimestamp() );
+
+        newUserRef.set(addedValue)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

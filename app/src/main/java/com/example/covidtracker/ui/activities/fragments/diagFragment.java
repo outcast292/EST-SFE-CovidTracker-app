@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ public class diagFragment extends Fragment {
 
     Button report,fragmentSympt,fragmentDiag;
     SharedPrefsHelper prefs;
+    TextView tiltetopbar;
 
     @Nullable
     @Override
@@ -35,6 +37,8 @@ public class diagFragment extends Fragment {
         fragmentDiag = view.findViewById(R.id.fragmentDiag);
         report = view.findViewById(R.id.selfRep);
 
+        tiltetopbar = view.findViewById(R.id.tiltetopbar);
+        tiltetopbar.setText("Diagnostique");
 
         fragmentSympt.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">CovidTracer</string>
-    <string name="app_name_isactive">CovidTracer est actif</string>s
+    <string name="app_name">NoCovid</string>
+    <string name="app_name_isactive">NoCovid est actif</string>s
     <string name="main_text">Cette application est soumise à des termes et conditions générales d\'utilisation.</string>
     <string name="app_desc_isactive">Ne faites rien que laisser l\'application en arrière-plan, ainsi que le bluetooth actif.</string>
     <string name="app_description">En laissant cette application s\'exécuter en arrière-plan, vous pourrez savoir quand vous êtes entré en contact avec une personne malade.</string>

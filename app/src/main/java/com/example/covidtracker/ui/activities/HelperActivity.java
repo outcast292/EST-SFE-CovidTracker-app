@@ -16,14 +16,6 @@ public class HelperActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        boolean isRegistered = sharedPreferences.getBoolean(getString(R.string.registered), false);
-        Intent intent;
-        if (isRegistered) {
-            intent = new Intent(this, LoggedInActivity.class);
-        } else {
-            intent = new Intent(this, MainActivity.class);
-        }
-        startActivity(intent);
-        finish();
+
     }
 }

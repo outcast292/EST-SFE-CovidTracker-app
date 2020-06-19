@@ -73,7 +73,12 @@ public class FirebaseDatabaseHelper {
         prefs = new SharedPrefsHelper(context);
 
         final DocumentReference newUserRef = usersCollection.document(user.getUid());
-        newUserRef.set(user)
+        Map<String, Object> addedValue = new HashMap<>();
+        addedValue.put("phone", user.getPhone());
+        addedValue.put("status", user.getStatus());
+        addedValue.put("update_timestamp",FieldValue.serverTimestamp() );
+
+        newUserRef.set(addedValue)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -113,7 +118,7 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
-    public void updateMeetingEnding(String myUserID, String metUserUID,String meetingDate ,String currentMeeting, FieldValue endingTimestamp, final DataStatus status) {
+    public void updateMeetingEnding(String myUserID, String metUserUID, String meetingDate, String currentMeeting, FieldValue endingTimestamp, final DataStatus status) {
         DocumentReference meetToUpdate = usersCollection.document(myUserID).collection("meetings").document(meetingDate).collection(metUserUID).document(currentMeeting);
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("lostTimestamp", endingTimestamp);
@@ -133,13 +138,13 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
-    public void updateUser(String myUserID,final Context context, final DataStatus status){
+    public void updateUser(String myUserID, final Context context, final DataStatus status) {
         prefs = new SharedPrefsHelper(context);
         DocumentReference meetToUpdate = usersCollection.document(myUserID);
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("status", "?Contamined");
         updatedFields.put("update_timestamp", FieldValue.serverTimestamp());
-        updatedFields.put("last_status", prefs.getHealthStatus() );
+        updatedFields.put("last_status", prefs.getHealthStatus());
 
         meetToUpdate.update(updatedFields)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -156,6 +161,7 @@ public class FirebaseDatabaseHelper {
                 });
 
     }
+
     public void updateDeviceToken(String myUserID, String deviceToken, final DataStatus status) {
         DocumentReference userToUpdate = usersCollection.document(myUserID);
         Map<String, Object> updatedFields = new HashMap<>();
@@ -175,7 +181,34 @@ public class FirebaseDatabaseHelper {
                 });
 
     }
-    public void addSymptom(final String myUserUID, SymptomLogModel symptom,String date, final DataStatus status) {
+
+    public void getStatus(String myUserUID,final Context context) {
+        usersCollection.document(myUserUID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        prefs = new SharedPrefsHelper(context);
+                        String status =  document.getData().get("status").toString();
+                        if(status!=null&& status!=""){
+                            prefs.setHealthStatus(status);
+                            Log.d(TAG, "onComplete: "+ status);
+
+                        }
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    public void addSymptom(final String myUserUID, SymptomLogModel symptom, String date,
+                           final DataStatus status) {
         usersCollection.document(myUserUID).collection("symptoms").document(date).set(symptom)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -191,27 +224,25 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
-    public void getSymptoms(final  String myUserUID,final DataStatus status){
+    public void getSymptoms(final String myUserUID, final DataStatus status) {
         usersCollection.document(myUserUID).collection("symptoms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Log.d(TAG, "Success getting Symptoms: ");
                     SymptomLogModel log = null;
 
-                    for (QueryDocumentSnapshot doc : task.getResult()){
-                        log  = doc.toObject(SymptomLogModel.class);
+                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                        log = doc.toObject(SymptomLogModel.class);
                         prefs.setSymptomsLog(log);
                     }
-                    if(log!=null)
-                    prefs.setSymptomsLastdate(log.getDate());
-                }
-                else {
+                    if (log != null)
+                        prefs.setSymptomsLastdate(log.getDate());
+                } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
             }
         });
-
     }
 
 

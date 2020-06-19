@@ -66,10 +66,9 @@
                 android:id="@+id/buttonResend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Resend"
                 android:backgroundTint="@color/BrownishWhite"
-                android:textColor="@color/kindaDarkGrey"
-                />
+                android:text="Renvoyer"
+                android:textColor="@color/kindaDarkGrey" />
         </LinearLayout>
 
     </LinearLayout>

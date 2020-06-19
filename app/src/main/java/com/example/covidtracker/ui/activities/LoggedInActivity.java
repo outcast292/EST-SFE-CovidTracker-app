@@ -62,6 +62,7 @@ public class LoggedInActivity extends AppCompatActivity {
                 Log.d("TAG", "Failed");
             }
         });
+        FirebaseDatabaseHelper.getInstance().getStatus(strUserUID, getApplicationContext());
 
         startService(FCMIntent);
         startService(serviceIntent);

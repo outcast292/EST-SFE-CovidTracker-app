@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -34,11 +35,12 @@ public class homeFragment extends Fragment {
     private String serviceStatus;
     CardView serviceState ;
     private static final String TAG = "homeFragment" ;
-    TextView serviceTitle,date ;
+    TextView serviceTitle,date,status,tiltetopbar ;
     Switch switchService;
     Date now = new Date();
     View sympReminder,stayhome_alert;
     ImageButton add;
+    ImageView icon;
 
 
 
@@ -54,6 +56,15 @@ public class homeFragment extends Fragment {
 
         Date alsoNow = Calendar.getInstance().getTime();
         String nowAsString = new SimpleDateFormat("yyyy-MM-dd").format(now);
+        icon = view.findViewById(R.id.statusIcon);
+        date = view.findViewById(R.id.date_lastcheck);
+        sympReminder = view.findViewById(R.id.symptoms_reminder);
+        add = view.findViewById(R.id.add);
+        tiltetopbar = view.findViewById(R.id.tiltetopbar);
+        tiltetopbar.setText("Home");
+
+        status = view.findViewById(R.id.status);
+
 
 //        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
                // mMessageReceiver, new IntentFilter("NearbyTrackingService"));
@@ -86,24 +97,34 @@ public class homeFragment extends Fragment {
 
 */
 
-        if(!nowAsString.equals(prefs.getSymptomsLastdate())){
-            date = view.findViewById(R.id.date_lastcheck);
-            sympReminder = view.findViewById(R.id.symptoms_reminder);
-            add = view.findViewById(R.id.add);
-            sympReminder.setVisibility(View.VISIBLE);
+        status.setText("Aujourd'hui : " + nowAsString );
+
+        if(nowAsString.equals(prefs.getSymptomsLastdate())){
+            add.setVisibility(View.GONE);
+            date.setText("Date du dernier log : " + prefs.getSymptomsLastdate());
+            icon.setImageResource(R.drawable.ic_check_circle_outline_24px);
+            icon.setColorFilter(getResources().getColor(R.color.smellOfSuccess));
+
+        }else{
+            add.setVisibility(View.VISIBLE);
             if(prefs.getSymptomsLastdate() == "null"){
                 date.setText("Commencer votre log de symptoms");
             }else{
                 date.setText("Date du dernier log :" + prefs.getSymptomsLastdate());
             }
+            icon.setImageResource(R.drawable.ic_highlight_off_24px);
+            icon.setColorFilter(getResources().getColor(R.color.failureStinks));
 
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new AddSymptomFragment()).commit();
-                }
-            });
         }
+
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new AddSymptomFragment()).commit();
+            }
+        });
+
 
         stayhome_alert = view.findViewById(R.id.stayhome_alert);
 

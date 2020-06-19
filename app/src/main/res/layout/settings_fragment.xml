@@ -7,6 +7,14 @@
     android:orientation="vertical"
     >
 
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        />
+
     <LinearLayout
         android:id="@+id/cgu"
         android:layout_width="match_parent"
@@ -14,6 +22,7 @@
         android:orientation="horizontal"
         android:padding="20dp"
         >
+
 
         <ImageView
             android:layout_width="wrap_content"

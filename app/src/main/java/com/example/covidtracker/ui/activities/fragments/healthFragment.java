@@ -29,7 +29,7 @@ public class healthFragment extends Fragment {
     private static final String TAG = "healthFragment" ;
     ImageButton add;
     ImageView icon,noLog;
-    TextView date,status,noLogText;
+    TextView date,status,noLogText,tiltetopbar;
     SharedPrefsHelper prefs;
     ListView lv;
     SymptomLogAdapter mAdapter;
@@ -53,6 +53,8 @@ public class healthFragment extends Fragment {
         lv = rootview.findViewById(R.id.lisstview);
         fragmentSympt = rootview.findViewById(R.id.fragmentSympt);
         fragmentDiag = rootview.findViewById(R.id.fragmentDiag);
+        tiltetopbar = rootview.findViewById(R.id.tiltetopbar);
+        tiltetopbar.setText("Health");
 
         Date alsoNow = Calendar.getInstance().getTime();
         String nowAsString = new SimpleDateFormat("yyyy-MM-dd").format(now);

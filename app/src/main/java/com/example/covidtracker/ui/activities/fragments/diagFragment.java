@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ public class diagFragment extends Fragment {
 
     Button report,fragmentSympt,fragmentDiag;
     SharedPrefsHelper prefs;
+    TextView tiltetopbar;
 
     @Nullable
     @Override
@@ -34,6 +36,10 @@ public class diagFragment extends Fragment {
         fragmentSympt = view.findViewById(R.id.fragmentSympt);
         fragmentDiag = view.findViewById(R.id.fragmentDiag);
         report = view.findViewById(R.id.selfRep);
+        tiltetopbar = view.findViewById(R.id.tiltetopbar);
+
+        tiltetopbar.setText("Diagnostique");
+
 
 
         fragmentSympt.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +61,7 @@ public class diagFragment extends Fragment {
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabaseHelper.getInstance().updateUser(prefs.getDeviceUUID(), new FirebaseDatabaseHelper.DataStatus() {
+                FirebaseDatabaseHelper.getInstance().updateUser(prefs.getDeviceUUID(), getContext(), new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void Success() {
                         Log.d(TAG, "updated user");

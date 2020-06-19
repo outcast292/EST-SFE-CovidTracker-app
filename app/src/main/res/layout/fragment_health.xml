@@ -8,6 +8,21 @@
 
 
     <include
+        android:id="@+id/top_bar"
+        layout="@layout/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_bar"
+        >
+
+    <include
         android:id="@+id/tabs"
         layout="@layout/tabs"
         android:layout_width="match_parent"
@@ -75,4 +90,5 @@
 
         </LinearLayout>
 
+    </RelativeLayout>
 </RelativeLayout>

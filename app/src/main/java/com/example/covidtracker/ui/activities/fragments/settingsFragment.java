@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.covidtracker.R;
 import com.example.covidtracker.cgu;
@@ -20,6 +21,7 @@ import com.example.covidtracker.ui.symptoms.AddSymptomFragment;
 public class settingsFragment extends Fragment {
 
     LinearLayout cgu;
+    TextView tiltetopbar;
 
     @Nullable
     @Override
@@ -27,6 +29,8 @@ public class settingsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.settings_fragment, container, false);
 
+        tiltetopbar = view.findViewById(R.id.tiltetopbar);
+        tiltetopbar.setText("Settings");
         cgu = view.findViewById(R.id.cgu);
 
         cgu.setOnClickListener(new View.OnClickListener() {

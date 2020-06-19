@@ -30,7 +30,7 @@ public class NotificationsFragment extends Fragment {
         return new NotificationsFragment();
     }
 
-    TextView message,noNotifs;
+    TextView message,noNotifs,tiltetopbar;
     String notifs;
     ArrayList<NotificationModel> notifications = new ArrayList<NotificationModel>();
     Gson g = new Gson();
@@ -47,6 +47,9 @@ public class NotificationsFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.notifications_fragment, container, false);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        tiltetopbar = rootview.findViewById(R.id.tiltetopbar);
+        tiltetopbar.setText("Notifications");
 
         ArrayList<NotificationModel> list = new ArrayList<NotificationModel>();
 

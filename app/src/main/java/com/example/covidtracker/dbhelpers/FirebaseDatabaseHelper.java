@@ -139,7 +139,7 @@ public class FirebaseDatabaseHelper {
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("status", "?Contamined");
         updatedFields.put("update_timestamp", FieldValue.serverTimestamp());
-        updatedFields.put("last_status",prefs.getHealthStatus() );
+        updatedFields.put("last_status", prefs.getHealthStatus() );
 
         meetToUpdate.update(updatedFields)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
